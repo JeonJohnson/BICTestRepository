@@ -9,6 +9,8 @@ public enum UnitName
     MachinegunMan,
     Sniper,
     RocketMan,
+
+
     End
 }
 
@@ -40,13 +42,22 @@ public abstract class Unit : MonoBehaviour
 {
     public UnitState state;
 
+    public Unit target;
 
     protected abstract void Fire();
     public abstract void Hit();
     public abstract void Heal();
     protected abstract void Destoryed();
 
-    protected abstract void Move();
+    protected virtual void Move()
+    {
+
+    }
+
+    protected virtual void Search()
+    { 
+          
+    }
 
 
     protected virtual void Awake()
