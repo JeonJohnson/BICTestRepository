@@ -24,6 +24,10 @@ public struct State
     public float armor;
 
     public Vector2 size;
+
+    public float offenseRange;
+
+    public float spawnTime;
 }
 
 public interface IOffensiveBuilding

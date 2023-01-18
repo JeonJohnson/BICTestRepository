@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ObjectManager : Manager<ObjectManager>
 {
+    public List<GameObject> prefabs;
+
+    //public Dictionary<string, GameObject>
+
+    
 
 
     List<Building> allyBuildings;

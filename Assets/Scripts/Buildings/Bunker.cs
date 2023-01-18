@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bunker : Building, IOffensiveBuilding
+public class Bunker : Building
 {
 	public void Fire()
 	{
@@ -30,6 +30,11 @@ public class Bunker : Building, IOffensiveBuilding
 	protected override void Update()
 	{
 		base.Update();
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		
 	}
 
 }
