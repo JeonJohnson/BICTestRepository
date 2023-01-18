@@ -13,7 +13,7 @@ public enum BuildingName
 }
 
 [System.Serializable]
-public struct State
+public struct BuildingState
 {
     public BuildingName name_e;
     
@@ -43,7 +43,7 @@ public interface ISpawnBuilding
 
 public abstract class Building : MonoBehaviour
 {
-    public State state;
+    public BuildingState state;
 
 
     public abstract void Hit();
