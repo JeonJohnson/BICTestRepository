@@ -69,13 +69,13 @@ public class CamController : MonoBehaviour
             }
 
 
-            if (Input.GetKey(KeyCode.UpArrow) || mousePosRatio.y <= 0.01f)
+            if (Input.GetKey(KeyCode.DownArrow) || mousePosRatio.y <= 0.01f)
             {
                 //transform.position -= Vector3.forward * Time.deltaTime * moveSpd;
 
                 moveVal = -1f * Vector3.forward * Time.deltaTime * moveSpd;
             }
-            if (Input.GetKey(KeyCode.DownArrow) || mousePosRatio.y >= 0.99f)
+            if (Input.GetKey(KeyCode.UpArrow) || mousePosRatio.y >= 0.99f)
             {
                 //transform.position += Vector3.forward * Time.deltaTime * moveSpd;
 
@@ -124,9 +124,9 @@ public class CamController : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-        Vector3 LB = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, transform.position.y));
+        //Vector3 LB = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, transform.position.y));
 
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(LB, 1f);
+        Gizmos.DrawSphere(transform.position, 1f);
 	}
 }
