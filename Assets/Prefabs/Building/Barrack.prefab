@@ -143,9 +143,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state:
-    name_e: 0
-    maxHp: 0
-    curHp: 0
+    name_e: 2
+    maxHp: 1000
+    curHp: 1000
     dmg: 0
-    armor: 0
-    size: {x: 0, y: 0}
+    armor: 0.5
+    size: {x: 2, y: 2}
+    offenseRange: 0
+    spawnTime: 15

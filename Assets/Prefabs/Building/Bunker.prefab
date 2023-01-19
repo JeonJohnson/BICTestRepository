@@ -106,6 +106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1688749421391315845}
+  - component: {fileID: 7181026483379194049}
   m_Layer: 0
   m_Name: Bunker
   m_TagString: Untagged
@@ -129,3 +130,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7181026483379194049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9089170655024691591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f153c4ae4bbb7844a734f716a80a61d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state:
+    name_e: 1
+    maxHp: 1600
+    curHp: 1600
+    dmg: 10
+    armor: 0.3
+    size: {x: 2, y: 2}
+    offenseRange: 6
+    spawnTime: 0

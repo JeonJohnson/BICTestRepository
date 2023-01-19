@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+using ExcelDataReader;
+
 public static class Funcs
 {
 	public static string GetEnumName<T>(int index) where T : struct, IConvertible
@@ -366,6 +368,55 @@ public static class Funcs
 		}
 		return str;
 	}
+
+
+	public static string ExcelFileReader(string filePath)
+	{
+		string loadString = string.Empty;
+		string fullPath = Application.streamingAssetsPath + "/" + filePath + ".xlsx";
+		var stream = File.Open(fullPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+		var reader = ExcelReaderFactory.CreateReader(stream);
+
+		var result = reader.AsDataSet();
+
+		for (int sheet = 0; sheet < result.Tables.Count; ++sheet)
+		{
+			for (int row = 0; row < result.Tables[sheet].Rows.Count; ++row)
+			{
+				for (int i = 0; i < 15; ++i)
+				{
+					string data1 = result.Tables[sheet].Rows[row][i].ToString();
+					if (string.Compare(data1, string.Empty) == 0)
+					{
+						data1 = " ";
+					}
+					loadString += data1;
+				}
+				//loadString += '\n';
+			}
+		}
+
+		return loadString;
+	}
+
+	public static void LineToList(string origin, ref List<string> list)
+	{
+		string line = string.Empty;
+
+		for (int i = 0; i < origin.Length; ++i)
+		{
+			if (origin[i] == '\n')
+			{
+				list.Add(line);
+				line = string.Empty;
+			}
+			else
+			{
+				line += origin[i];
+			}
+		}
+	}
+
 
 
 	public static Color SetAlpha(Color color, float alpha)
