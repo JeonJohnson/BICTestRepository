@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4311839225328827518}
   - component: {fileID: 4311839225328827519}
   - component: {fileID: 4311839225328827516}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7023640328964861730}
   - component: {fileID: 5799077927529616915}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Barrack
   m_TagString: Untagged
   m_Icon: {fileID: 0}

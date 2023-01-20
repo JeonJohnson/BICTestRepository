@@ -4,11 +4,11 @@ using UnityEngine;
 
 public enum BuildingName
 { 
-    Nexsus,
-    Bunker,
-    Barrack,
-    Trap,
-    Barricade,
+    Nexsus, //0
+    Bunker, //1
+    Barrack, //2
+    Trap, //3
+    Barricade, //4
     End
 }
 

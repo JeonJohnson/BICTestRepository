@@ -107,7 +107,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7201389953573263911}
   - component: {fileID: 7201389953573263910}
-  m_Layer: 0
+  - component: {fileID: 1549019973385750803}
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,18 +145,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dae0f3e223db9c4985cdfe1568506dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state:
-    name_e: 0
-    maxHp: 0
-    curHp: 0
-    range: 0
-    dmg: 0
-    rapid: 0
-    reloadTime: 0
-    healAmount: 0
-    healTime: 0
-    moveSpd: 0
-  target: {fileID: 0}
+  targetPos: {x: 57, y: 1, z: 10}
+  navAgent: {fileID: 0}
+--- !u!195 &1549019973385750803
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7201389953573263912}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.25
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &7201389954256688585
 GameObject:
   m_ObjectHideFlags: 0

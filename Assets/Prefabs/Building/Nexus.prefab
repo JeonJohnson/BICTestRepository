@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4438203354572594509}
   - component: {fileID: 4438203354572594508}
   - component: {fileID: 4438203354572594547}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2228085486977850650}
   - component: {fileID: 8857894844153992648}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Nexus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,3 +149,5 @@ MonoBehaviour:
     dmg: 0
     armor: 0.3
     size: {x: 3, y: 3}
+    offenseRange: 0
+    spawnTime: 0

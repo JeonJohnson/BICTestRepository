@@ -11,6 +11,8 @@ public class ObjectManager : Manager<ObjectManager>
 
     //public Dictionary<string, GameObject>
 
+
+    public Transform enemySpawnPos;
     public GameObject enemyPrefab;
     public int spawnEnemyCount;
     public float enemySpawnTime;
@@ -20,6 +22,7 @@ public class ObjectManager : Manager<ObjectManager>
 
 
     public List<GameObject> buildingPrefabs;
+    public NavigationBaker navBaker;
     List<Building> allyBuildings;
     List<Building> enemyBuildings;
 
@@ -61,7 +64,7 @@ public class ObjectManager : Manager<ObjectManager>
                     {
                         if (size.x == 1)
                         { 
-                            Instantiate(prefab,new Vector3(i,0.5f,k), Quaternion.identity);
+                            Instantiate(prefab,new Vector3(i,1f,k), Quaternion.identity);
                         }
                     }
                     else
@@ -119,7 +122,7 @@ public class ObjectManager : Manager<ObjectManager>
 	{
 
         SettingBuildings();
-
+        navBaker.BakeNavMesh();
     }
 
 	// Start is called before the first frame update

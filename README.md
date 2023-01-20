@@ -24,3 +24,8 @@ Unit 	- Humanoid
 할일	1. 에너미 소환, 네비 매쉬 에이전트 넣고 우리 넥서스 쪽으로 움직이기
 	2. 동적으로 네비매쉬 깔기
 	3. 막사에서 라이플맨 소환하기
+
+21:07 2023-1-20	네비매쉬 동적으로 깔기 성공 
+		-> 바닥이 될 친구한테 NavMeshSurface 깔아두고 거기에 obstacle 될 애들 레이어 정하기
+		-> Navigation Baker은 네비 동적으로 까는 스크립트, 아무 오브젝트에 넣어놓고 surface에 navmeshSurface 들어간 바닥 친구 넣어주기
+		-> 게임 시작 후 원할 때 Navigation Baker의 Bake 함수 실행!
