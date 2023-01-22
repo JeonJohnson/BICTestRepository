@@ -29,3 +29,7 @@ Unit 	- Humanoid
 		-> 바닥이 될 친구한테 NavMeshSurface 깔아두고 거기에 obstacle 될 애들 레이어 정하기
 		-> Navigation Baker은 네비 동적으로 까는 스크립트, 아무 오브젝트에 넣어놓고 surface에 navmeshSurface 들어간 바닥 친구 넣어주기
 		-> 게임 시작 후 원할 때 Navigation Baker의 Bake 함수 실행!
+
+22:51 2023-01-22	적 생성됨, 벙커에서 총알 나감
+	할거 : 벙커에서 적 찾는거에서 거리 기준 추가하기
+		유닛 작업시작

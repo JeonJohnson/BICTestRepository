@@ -5,14 +5,24 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+	public float curHp;
+	public float maxHp;
+
 
 	public Vector3 targetPos;
 
 	public NavMeshAgent navAgent;
 
+	public bool isDead;
 
-	public  void Hit()
+	public  void Hit(float dmg)
 	{
+		curHp -= dmg;
+
+		if (curHp <= 0f)
+		{
+			ObjectManager.Instance.DeathEnemy(this);
+		}
 	}
 
 	public void Destoryed()

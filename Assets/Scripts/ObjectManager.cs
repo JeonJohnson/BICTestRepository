@@ -12,6 +12,8 @@ public class ObjectManager : Manager<ObjectManager>
     //public Dictionary<string, GameObject>
 
 
+    public GameObject bulletPrefab;
+
     public Transform enemySpawnPos;
     public GameObject enemyPrefab;
     public int spawnEnemyCount;
@@ -26,17 +28,7 @@ public class ObjectManager : Manager<ObjectManager>
     List<Building> allyBuildings;
     List<Building> enemyBuildings;
 
-    //public Enemy SearchCloseEnemy(Unit unit)
-    //{
-    //    //foreach (Enemy enemy in enemyList)
-    //    //{ 
-    //    //    enemy
-
-    //    //}
-
-    //    enemyList.Find(x => )
-    //}
-
+ 
 
 
     public void SettingBuildings()
@@ -94,9 +86,36 @@ public class ObjectManager : Manager<ObjectManager>
 
 	}
 
+    public Enemy SearchCloseEnemy(GameObject unit, float dist = 6)
+	{
+        //foreach (Enemy enemy in enemyList)
+        //{ 
+        //    enemy
+
+        //}
+
+        if (enemyList.Count == 0)
+        {
+            return null;
+        }
+
+       var TempList =  enemyList.OrderByDescending(x => Vector3.Distance(unit.transform.position, x.transform.position));
+
+        foreach (Enemy result in TempList)
+        {
+            if (!result.isDead)
+            {
+                return result;
+            }
+        }
+
+        return null;
+       
+	}
 
 
-    public IEnumerator EnemySpawnCoroutine()
+
+	public IEnumerator EnemySpawnCoroutine()
     {
         int leftSpawnCount = spawnEnemyCount;
 
@@ -104,17 +123,17 @@ public class ObjectManager : Manager<ObjectManager>
         {
             GameObject newEnemy = Instantiate(enemyPrefab);
             Enemy newEnemyScript = newEnemy.GetComponent<Enemy>();
-
-
+            enemyList.Add(newEnemyScript);
 
             yield return new WaitForSeconds(enemySpawnTime);
         }
+                    
+    }
 
-
-
-
-            
-    
+    public void DeathEnemy(Enemy enemy)
+    {
+        enemyList.Remove(enemy);
+        Destroy(enemy.gameObject);
     }
 
 
@@ -128,7 +147,7 @@ public class ObjectManager : Manager<ObjectManager>
 	// Start is called before the first frame update
 	void Start()
     {
-        
+        StartCoroutine(EnemySpawnCoroutine());
     }
 
     // Update is called once per frame

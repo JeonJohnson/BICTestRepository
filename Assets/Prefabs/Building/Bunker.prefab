@@ -150,4 +150,4 @@ MonoBehaviour:
     armor: 0.3
     size: {x: 2, y: 2}
     offenseRange: 6
-    spawnTime: 0
+    spawnTime: 0.1
