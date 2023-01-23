@@ -214,9 +214,32 @@ public class ObjectManager : Manager<ObjectManager>
 		for (int i = 0; i < count; ++i)
         {
             GameObject newUnit = Instantiate(unitPrefabs[index]);
-            newUnit.GetComponent<Unit>().SetPosition(unitSpawnPos);
+            newUnit.GetComponent<Unit>().SetTransform(unitSpawnPos);
         }
         
+    }
+
+    public void SpawnUnit(int index, Vector3 pos)
+    {
+        int count = 1;
+
+        switch (index)
+        {
+            case 0:
+                {
+                    count = 4;
+                }
+                break;
+            default:
+                break;
+        }
+
+        for (int i = 0; i < count; ++i)
+        {
+            GameObject newUnit = Instantiate(unitPrefabs[index]);
+            newUnit.GetComponent<Unit>().SetPosition(pos);
+        }
+
     }
 
     public void SpawnUnitHotKey()

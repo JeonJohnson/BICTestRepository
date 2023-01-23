@@ -49,11 +49,18 @@ public abstract class Unit : MonoBehaviour
     public NavMeshAgent navAgent;
 
 
-    public void SetPosition(Transform tr)
+    public void SetTransform(Transform tr)
     {
         navAgent.enabled = false;
         transform.position = tr.position;
         transform.rotation = tr.rotation;
+        navAgent.enabled = true;
+    }
+
+    public void SetPosition(Vector3 pos)
+    {
+        navAgent.enabled = false;
+        transform.position = pos;
         navAgent.enabled = true;
     }
     protected abstract void Fire();
@@ -73,10 +80,11 @@ public abstract class Unit : MonoBehaviour
 
 
     protected virtual void Awake()
-    {
-        navAgent = GetComponent<NavMeshAgent>();
-    }
-    protected virtual void Start()
+	{
+		navAgent = GetComponent<NavMeshAgent>();
+        navAgent.speed = state.moveSpd;
+	}
+	protected virtual void Start()
     {
     }
     protected virtual void Update()
