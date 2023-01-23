@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.AI;
+
 public enum UnitName
 { 
     RifleMan,
@@ -42,8 +44,18 @@ public abstract class Unit : MonoBehaviour
 {
     public UnitState state;
 
-    public Unit target;
+    public Enemy target;
 
+    public NavMeshAgent navAgent;
+
+
+    public void SetPosition(Transform tr)
+    {
+        navAgent.enabled = false;
+        transform.position = tr.position;
+        transform.rotation = tr.rotation;
+        navAgent.enabled = true;
+    }
     protected abstract void Fire();
     public abstract void Hit();
     public abstract void Heal();
@@ -62,6 +74,7 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void Awake()
     {
+        navAgent = GetComponent<NavMeshAgent>();
     }
     protected virtual void Start()
     {

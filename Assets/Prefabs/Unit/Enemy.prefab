@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curHp: 100
-  maxHp: 100
+  maxHp: 1000
   targetPos: {x: 57, y: 1, z: 10}
   navAgent: {fileID: 0}
   isDead: 0

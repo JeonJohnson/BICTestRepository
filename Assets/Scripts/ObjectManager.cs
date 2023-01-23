@@ -6,6 +6,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 public class ObjectManager : Manager<ObjectManager>
 {
     //public List<GameObject> prefabs;
@@ -33,8 +35,17 @@ public class ObjectManager : Manager<ObjectManager>
     List<Building> allyBuildings;
     List<Building> enemyBuildings;
 
- 
 
+    
+    public Text resourceTxt;
+    public float resource;
+
+    public Text populationTxt;
+    public int population;
+
+    public Transform unitSpawnPos;
+    public List<GameObject> unitPrefabs;
+    public List<Unit> aliveUnits;
 
     public void SettingBuildings()
     { 
@@ -126,7 +137,7 @@ public class ObjectManager : Manager<ObjectManager>
             return null;
         }
 
-       var TempList =  enemyList.OrderByDescending(x => Vector3.Distance(unit.transform.position, x.transform.position)).ToList();
+       var TempList =  enemyList.OrderBy(x => Vector3.Distance(unit.transform.position, x.transform.position)).ToList();
 
 
         TempList.RemoveAll(delegate (Enemy enemy)
@@ -146,6 +157,25 @@ public class ObjectManager : Manager<ObjectManager>
         return null;
 	}
 
+    public Enemy SearchCloseEnemy(GameObject unit)
+    {
+        if (enemyList.Count == 0)
+        {
+            return null;
+        }
+
+        var TempList = enemyList.OrderBy(x => Vector3.Distance(unit.transform.position, x.transform.position)).ToList();
+
+        foreach (Enemy result in TempList)
+        {
+            if (!result.isDead)
+            {
+                return result;
+            }
+        }
+
+        return null;
+    }
 
 
 
@@ -157,6 +187,49 @@ public class ObjectManager : Manager<ObjectManager>
         --leftEnemyCount;
     }
 
+
+    private void AddResource()
+    {
+        resource += Time.deltaTime;
+
+        resourceTxt.text = ((int)resource).ToString();
+    }
+
+
+    public void SpawnUnit(int index)
+    {
+        int count = 1;
+
+		switch (index)
+		{
+            case 0:
+                {
+                    count = 4;
+                }
+                break;
+			default:
+				break;
+		}
+
+		for (int i = 0; i < count; ++i)
+        {
+            GameObject newUnit = Instantiate(unitPrefabs[index]);
+            newUnit.GetComponent<Unit>().SetPosition(unitSpawnPos);
+        }
+        
+    }
+
+    public void SpawnUnitHotKey()
+    {
+        //@1=> 49
+        for (int i = 49; i < 54; ++i)
+        {
+            if (Input.GetKeyDown((KeyCode)i))
+            {
+                SpawnUnit(i - 49);
+            }
+        }
+    }
 
 	private void Awake()
 	{
@@ -180,5 +253,8 @@ public class ObjectManager : Manager<ObjectManager>
     void Update()
     {
         leftEnemyTxt.text = leftEnemyCount.ToString();
+        AddResource();
+        SpawnUnitHotKey();
+
     }
 }

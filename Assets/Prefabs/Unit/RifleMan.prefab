@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2097027535029523280}
   - component: {fileID: 982412731909708090}
+  - component: {fileID: 7129258992302855151}
   m_Layer: 0
   m_Name: RifleMan
   m_TagString: Untagged
@@ -57,6 +58,34 @@ MonoBehaviour:
     healAmount: 0
     healTime: 0
     moveSpd: 0.8
+  target: {fileID: 0}
+  navAgent: {fileID: 0}
+  barrel: {fileID: 4948764942761918957}
+  maxRound: 30
+  curRound: 0
+  curTime: 0
+--- !u!195 &7129258992302855151
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894750934311670242}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &3760791238282055707
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,7 +97,6 @@ GameObject:
   - component: {fileID: 3760791238282055711}
   - component: {fileID: 3760791238282055710}
   - component: {fileID: 3760791238282055709}
-  - component: {fileID: 3760791238282055708}
   m_Layer: 0
   m_Name: model
   m_TagString: Untagged
@@ -141,20 +169,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3760791238282055708
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3760791238282055707}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &6729484884224061153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -215,5 +229,10 @@ PrefabInstance:
 --- !u!4 &3796724104706333362 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7625511901084398675, guid: ecb999e74bc93b949a79d9e9de85732f, type: 3}
+  m_PrefabInstance: {fileID: 6729484884224061153}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4948764942761918957 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1859535467971751692, guid: ecb999e74bc93b949a79d9e9de85732f, type: 3}
   m_PrefabInstance: {fileID: 6729484884224061153}
   m_PrefabAsset: {fileID: 0}

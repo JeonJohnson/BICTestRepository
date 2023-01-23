@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 13031897}
   - component: {fileID: 13031896}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: Medic_Bnt(Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,7 +206,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 13031897}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1198493212}
+        m_TargetAssemblyTypeName: ObjectManager, Assembly-CSharp
+        m_MethodName: SpawnUnit
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &13031897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +337,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98126782}
   m_CullTransparentMesh: 1
+--- !u!4 &140129480 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2526238537930580666, guid: 61c80693f6c0f984f95603c29dbdd2cf, type: 3}
+  m_PrefabInstance: {fileID: 1623519737}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &154746820
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +355,7 @@ GameObject:
   - component: {fileID: 154746823}
   - component: {fileID: 154746822}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: Rifleman_Btn(Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -408,7 +425,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 154746823}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1198493212}
+        m_TargetAssemblyTypeName: ObjectManager, Assembly-CSharp
+        m_MethodName: SpawnUnit
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &154746823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -731,7 +760,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: UnitName
+  m_Text: "\uC758\uBB34\uBCD1\n\uC18C\uD658\n(2\uBC88)"
 --- !u!222 &501466643
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -891,7 +920,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: UnitName
+  m_Text: "\uAE30\uAD00\uBCD1\n\uC18C\uD658\n(3\uBC88)"
 --- !u!222 &544404358
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1035,7 +1064,7 @@ GameObject:
   - component: {fileID: 653467007}
   - component: {fileID: 653467006}
   m_Layer: 5
-  m_Name: Button (Legacy) (2)
+  m_Name: machine_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1105,7 +1134,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 653467007}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1198493212}
+        m_TargetAssemblyTypeName: ObjectManager, Assembly-CSharp
+        m_MethodName: SpawnUnit
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &653467007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,7 +1427,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: UnitName
+  m_Text: "\uB85C\uCF13 \uC18C\uD658\n(5\uBC88)"
 --- !u!222 &864784778
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1509,7 +1550,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: UnitName
+  m_Text: "\uBCF4\uBCD1 \uC18C\uD658\n(1\uBC88)"
 --- !u!222 &924830889
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1856,6 +1897,18 @@ MonoBehaviour:
   - {fileID: 6876227559302429494, guid: eea996c3e137f72458a64c75bb9c4f1f, type: 3}
   navBaker: {fileID: 880602793}
   barricadeBox: {fileID: 1862672333}
+  resourceTxt: {fileID: 1977895561}
+  resource: 0
+  populationTxt: {fileID: 1020779337}
+  population: 0
+  unitSpawnPos: {fileID: 140129480}
+  unitPrefabs:
+  - {fileID: 1894750934311670242, guid: 80a4908a155fa90449291a9862300793, type: 3}
+  - {fileID: 8347076708959117572, guid: 5cf6a46675b34264bb07bfd4a760c5bd, type: 3}
+  - {fileID: 1288162104193911205, guid: 2a64506e04e337b499dbf6f03aba6d95, type: 3}
+  - {fileID: 5604251862380936986, guid: 4f41ef34202e2174a9f43e8d0f2580fe, type: 3}
+  - {fileID: 4534142364394043834, guid: 3049b7e1bbcc64141882e3a2ad36f5f7, type: 3}
+  aliveUnits: []
 --- !u!4 &1198493213
 Transform:
   m_ObjectHideFlags: 0
@@ -2033,7 +2086,7 @@ GameObject:
   - component: {fileID: 1327121489}
   - component: {fileID: 1327121488}
   m_Layer: 5
-  m_Name: Button (Legacy) (3)
+  m_Name: Sniper_bnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2103,7 +2156,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1327121489}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1198493212}
+        m_TargetAssemblyTypeName: ObjectManager, Assembly-CSharp
+        m_MethodName: SpawnUnit
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1327121489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2335,7 +2400,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: SkillName
+  m_Text: "\uD3ED\uACA9 \uC9C0\uC6D0"
 --- !u!222 &1526132608
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2357,7 +2422,7 @@ GameObject:
   - component: {fileID: 1584078223}
   - component: {fileID: 1584078222}
   m_Layer: 5
-  m_Name: Button (Legacy) (4)
+  m_Name: Rocket_bnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2427,7 +2492,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1584078223}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1198493212}
+        m_TargetAssemblyTypeName: ObjectManager, Assembly-CSharp
+        m_MethodName: SpawnUnit
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1584078223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2520,6 +2597,26 @@ PrefabInstance:
     - target: {fileID: 112051286863684915, guid: 61c80693f6c0f984f95603c29dbdd2cf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2526238537930580666, guid: 61c80693f6c0f984f95603c29dbdd2cf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2526238537930580666, guid: 61c80693f6c0f984f95603c29dbdd2cf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2526238537930580666, guid: 61c80693f6c0f984f95603c29dbdd2cf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2526238537930580666, guid: 61c80693f6c0f984f95603c29dbdd2cf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2526238537930580666, guid: 61c80693f6c0f984f95603c29dbdd2cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61c80693f6c0f984f95603c29dbdd2cf, type: 3}
@@ -2774,7 +2871,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: UnitName
+  m_Text: "\uC800\uACA9\uC218\n\uC18C\uD658\n(4\uBC88)"
 --- !u!222 &1904825433
 CanvasRenderer:
   m_ObjectHideFlags: 0
