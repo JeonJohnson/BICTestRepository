@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
 	public float curHp;
 	public float maxHp;
 
+	public float moveSpd;
 
 	public Vector3 targetPos;
 
@@ -35,9 +36,16 @@ public class Enemy : MonoBehaviour
 
 
 	}
+
+	public void SetSpeed(float percent)
+	{
+		navAgent.speed = moveSpd * percent;
+	}
+
 	protected  void Awake()
 	{
 		navAgent = GetComponent<NavMeshAgent>();
+		navAgent.speed = moveSpd;
 		curHp = maxHp;
 	}
 
@@ -49,4 +57,25 @@ public class Enemy : MonoBehaviour
 	protected  void Update()
 	{
 	}
+
+
+
+	//private void OnTriggerStay(Collider other)
+	//{
+	//	if (other.CompareTag("Trap"))
+	//	{
+	//		navAgent.speed = moveSpd * 0.5f;
+	//		Debug.Log("Æ®·¦¹âÀ½");
+	//	}
+	//}
+
+	//private void OnTriggerExit(Collider other)
+	//{
+	//	if (other.CompareTag("Trap"))
+	//	{
+	//		navAgent.speed = moveSpd;
+	//		Debug.Log("Æ®·¦¿¡¼­ ³ª¿È");
+	//	}
+
+	//}
 }

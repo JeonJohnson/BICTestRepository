@@ -124,6 +124,7 @@ public class ObjectManager : Manager<ObjectManager>
             Enemy newEnemyScript = newEnemy.GetComponent<Enemy>();
             enemyList.Add(newEnemyScript);
             --leftSpawnCount;
+            Debug.Log(leftSpawnCount + "마리 남음");
 
             yield return new WaitForSeconds(enemySpawnTime);
         }

@@ -26,4 +26,23 @@ public class Trap : Building
 	{
 		base.Update();
 	}
+
+	private void OnTriggerStay(Collider other)
+	{
+		if (other.CompareTag("Enemy"))
+		{
+			other.GetComponent<Enemy>().SetSpeed(0.5f);
+			Debug.Log("Æ®·¦¹âÀ½");
+		}
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.CompareTag("Enemy"))
+		{
+			other.GetComponent<Enemy>().SetSpeed(1);
+			Debug.Log("Æ®·¦¿¡¼­ ³ª¿È");
+		}
+
+	}
 }
