@@ -13,14 +13,15 @@ public class Enemy : MonoBehaviour
 
 	public NavMeshAgent navAgent;
 
-	public bool isDead;
+	public bool isDead = false;
 
 	public  void Hit(float dmg)
 	{
 		curHp -= dmg;
 
-		if (curHp <= 0f)
+		if (!isDead && curHp <=0f)
 		{
+			isDead = true;
 			ObjectManager.Instance.DeathEnemy(this);
 		}
 	}
@@ -37,6 +38,7 @@ public class Enemy : MonoBehaviour
 	protected  void Awake()
 	{
 		navAgent = GetComponent<NavMeshAgent>();
+		curHp = maxHp;
 	}
 
 	protected  void Start()

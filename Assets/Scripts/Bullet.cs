@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
     public float dmg;
 
     public float spd;
+
+    public float curTime = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +19,16 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+        curTime += Time.deltaTime;
+
         transform.position += transform.forward * spd * Time.deltaTime;
+
+        if (curTime >= 5f)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
 	public void OnTriggerEnter(Collider other)

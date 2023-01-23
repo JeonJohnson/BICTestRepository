@@ -61,22 +61,24 @@ public class Bunker : Building
 
 		if (targetEnemy == null)
 		{
-			targetEnemy = ObjectManager.Instance.SearchCloseEnemy(gameObject);
+			targetEnemy = ObjectManager.Instance.SearchCloseEnemy(gameObject, state.offenseRange);
 		}
-		else
-		{
-			if (targetEnemy.isDead)
+		
+		if(targetEnemy != null)
+		{//한번더 검사하게 else 안씀.
+
+			dist = Vector3.Distance(transform.position, targetEnemy.transform.position);
+			dir = (targetEnemy.transform.position - transform.position).normalized;
+
+			if (dist > state.offenseRange | targetEnemy.isDead)
 			{
 				targetEnemy = null;
 			}
 			else
 			{
-
-				dist = Vector3.Distance(transform.position, targetEnemy.transform.position);
-				dir = (targetEnemy.transform.position - transform.position).normalized;
+				
 			}
 		}
-
 
 		Fire();
 	}
