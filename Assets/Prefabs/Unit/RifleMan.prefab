@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2097027535029523280}
   - component: {fileID: 982412731909708090}
   - component: {fileID: 7129258992302855151}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RifleMan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ MonoBehaviour:
   state:
     name_e: 0
     maxHp: 100
-    curHp: 100
+    curHp: 10
     range: 4
     dmg: 9
     rapid: 1
@@ -58,12 +58,12 @@ MonoBehaviour:
     healAmount: 0
     healTime: 0
     moveSpd: 0.8
-  target: {fileID: 0}
-  navAgent: {fileID: 0}
   barrel: {fileID: 4948764942761918957}
   maxRound: 30
   curRound: 0
   curTime: 0
+  target: {fileID: 0}
+  navAgent: {fileID: 0}
 --- !u!195 &7129258992302855151
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -97,7 +97,8 @@ GameObject:
   - component: {fileID: 3760791238282055711}
   - component: {fileID: 3760791238282055710}
   - component: {fileID: 3760791238282055709}
-  m_Layer: 0
+  - component: {fileID: 205461684716591700}
+  m_Layer: 7
   m_Name: model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,6 +170,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &205461684716591700
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3760791238282055707}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &6729484884224061153
 PrefabInstance:
   m_ObjectHideFlags: 0

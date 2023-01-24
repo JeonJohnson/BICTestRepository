@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6524955936650144071}
   - component: {fileID: 8460911671978470017}
   - component: {fileID: 5539658714436803338}
-  - component: {fileID: 3905293239430457447}
   m_Layer: 0
   m_Name: Bag
   m_TagString: Untagged
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3905293239430457447
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1381959080282974133}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4662262516831574253
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +95,7 @@ GameObject:
   - component: {fileID: 4662262516831574240}
   - component: {fileID: 4662262516831574255}
   - component: {fileID: 4662262516831574254}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,8 +190,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5558450549821222116}
-  m_Layer: 0
-  m_Name: Meidc
+  - component: {fileID: 5090905901819523353}
+  - component: {fileID: 2553353368530229510}
+  m_Layer: 7
+  m_Name: Medic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,6 +217,59 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &5090905901819523353
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8347076708959117572}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &2553353368530229510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8347076708959117572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75995cd0d49e0224d8625feef6659a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state:
+    name_e: 1
+    maxHp: 355
+    curHp: 355
+    range: 3
+    dmg: 15
+    rapid: 1
+    reloadTime: 1.25
+    healAmount: 10
+    healTime: 1
+    moveSpd: 0.7
+  barrel: {fileID: 697535560685957857}
+  maxRound: 30
+  curRound: 30
+  curTime: 0
+  target: {fileID: 0}
+  navAgent: {fileID: 0}
+  healRange: 3
+  curHealTime: 0
 --- !u!1001 &8060251199746589001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -286,6 +327,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ef9b1407bb8a394c966f66a8f940e96, type: 3}
+--- !u!4 &697535560685957857 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7383061320069575592, guid: 6ef9b1407bb8a394c966f66a8f940e96, type: 3}
+  m_PrefabInstance: {fileID: 8060251199746589001}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1660633183223537914 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8705461198743413171, guid: 6ef9b1407bb8a394c966f66a8f940e96, type: 3}

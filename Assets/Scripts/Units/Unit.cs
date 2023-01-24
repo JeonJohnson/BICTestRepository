@@ -44,7 +44,14 @@ public abstract class Unit : MonoBehaviour
 {
     public UnitState state;
 
+    public Transform barrel;
+    public int maxRound;
+    public int curRound;
+    public float curTime;
+
     public Enemy target;
+    protected float dist;
+    protected Vector3 dir;
 
     public NavMeshAgent navAgent;
 

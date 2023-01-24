@@ -1,27 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+
 using UnityEngine;
 
-public class RifleMan : Unit
+
+public class Medic : Unit
 {
+	public float healRange;
+	public float curHealTime;
 	
-
-
-
+	
 	public override void Heal()
 	{
+		curHealTime += Time.deltaTime;
 
+		if (curHealTime >= state.healTime)
+		{
+			var cols = Physics.OverlapSphere(transform.position, healRange, LayerMask.GetMask("Unit"));
+
+
+			if (cols.Length == 0)
+			{
+				return;
+			}
+			else
+			{
+				var list = cols.ToList();
+				list.RemoveAll (x => x.transform.root.gameObject == this.gameObject);
+
+				foreach (Collider col in list)
+				{
+					GameObject unitObj = col.transform.root.gameObject;
+
+					Unit unit = unitObj.GetComponent<Unit>();
+
+					//unit.state.curHp += unit.state.maxHp * 0.1f;
+
+					unit.state.curHp = Mathf.Clamp(unit.state.curHp + unit.state.maxHp * 0.1f, 0, unit.state.maxHp);
+
+
+					curHealTime = 0f;
+				}
+			}
+		}
 	}
 
 	public override void Hit()
 	{
-
+		
 	}
 
 
 	protected override void Destoryed()
 	{
-
+		
 	}
 
 	protected override void Fire()
@@ -37,7 +70,7 @@ public class RifleMan : Unit
 				bulletObj.transform.position = barrel.position;
 				bulletObj.transform.forward = dir;
 				bulletObj.GetComponent<Bullet>().dmg = state.dmg;
-				bulletObj.GetComponent<Bullet>().spd = 1.2f;
+				bulletObj.GetComponent<Bullet>().spd = 3.3f;
 				--curRound;
 				curTime = 0f;
 			}
@@ -57,7 +90,11 @@ public class RifleMan : Unit
 	protected override void Move()
 	{
 		base.Move();
+	}
 
+	protected override void Search()
+	{
+		base.Search();
 	}
 	protected override void Awake()
 	{
@@ -67,8 +104,6 @@ public class RifleMan : Unit
 	protected override void Start()
 	{
 		base.Start();
-
-		curRound = maxRound;
 	}
 
 	protected override void Update()
@@ -88,7 +123,7 @@ public class RifleMan : Unit
 
 			dist = Vector3.Distance(transform.position, target.transform.position);
 			dir = (target.transform.position - transform.position).normalized;
-			
+
 			if (target.isDead)
 			{
 				target = null;
@@ -118,7 +153,17 @@ public class RifleMan : Unit
 		}
 
 
+		Heal();
 
-		
 	}
+
+	public void OnDrawGizmos()
+	{
+		Gizmos.color = Color.green;
+
+		Gizmos.DrawWireSphere(transform.position, healRange);
+
+	}
+
 }
+

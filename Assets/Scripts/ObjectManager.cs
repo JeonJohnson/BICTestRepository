@@ -45,6 +45,7 @@ public class ObjectManager : Manager<ObjectManager>
 
     public Transform unitSpawnPos;
     public List<GameObject> unitPrefabs;
+    public List<Unit>[] units;
     public List<Unit> aliveUnits;
 
     public void SettingBuildings()

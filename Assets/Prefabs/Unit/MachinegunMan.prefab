@@ -108,7 +108,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8624826263494518388}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MachinegunMan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
