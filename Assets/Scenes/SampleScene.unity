@@ -1900,7 +1900,8 @@ MonoBehaviour:
   resourceTxt: {fileID: 1977895561}
   resource: 0
   populationTxt: {fileID: 1020779337}
-  population: 0
+  maxPop: 15
+  curPop: 0
   unitSpawnPos: {fileID: 140129480}
   unitPrefabs:
   - {fileID: 1894750934311670242, guid: 80a4908a155fa90449291a9862300793, type: 3}

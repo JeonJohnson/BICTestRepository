@@ -41,7 +41,9 @@ public class ObjectManager : Manager<ObjectManager>
     public float resource;
 
     public Text populationTxt;
-    public int population;
+    public int maxPop;
+    [HideInInspector]
+    public int curPop;
 
     public Transform unitSpawnPos;
     public List<GameObject> unitPrefabs;
@@ -194,9 +196,13 @@ public class ObjectManager : Manager<ObjectManager>
     {
         resource += Time.deltaTime;
 
-        resourceTxt.text = ((int)resource).ToString();
+        resourceTxt.text = "<size=50>Resource</size>\n" + $"<size=100>{((int)resource)}</size>";
     }
 
+    private void UpdatePopulaitionUI()
+    {
+        populationTxt.text = "<size=40>Population</size>\n" + $"<size=85>{curPop}/{maxPop}</size>";
+    }
 
     public void SpawnUnit(int index)
     {
@@ -213,13 +219,22 @@ public class ObjectManager : Manager<ObjectManager>
 				break;
 		}
 
-		for (int i = 0; i < count; ++i)
+        for (int i = 0; i < count; ++i)
         {
+            if (curPop >= maxPop)
+            { return; }
+        
             GameObject newUnit = Instantiate(unitPrefabs[index]);
             newUnit.GetComponent<Unit>().SetTransform(unitSpawnPos);
+
+            ++curPop;
         }
-        
+
+        //UpdatePopulaitionUI();
+
     }
+
+
 
     public void SpawnUnit(int index, Vector3 pos)
     {
@@ -238,9 +253,17 @@ public class ObjectManager : Manager<ObjectManager>
 
         for (int i = 0; i < count; ++i)
         {
+            if (curPop >= maxPop)
+            { return; }
+
             GameObject newUnit = Instantiate(unitPrefabs[index]);
             newUnit.GetComponent<Unit>().SetPosition(pos);
+
+
+            ++curPop;
         }
+
+        //UpdatePopulaitionUI();
 
     }
 
@@ -272,6 +295,7 @@ public class ObjectManager : Manager<ObjectManager>
     {
         
         StartCoroutine(EnemySpawnCoroutine());
+        
     }
 
     // Update is called once per frame
@@ -281,5 +305,6 @@ public class ObjectManager : Manager<ObjectManager>
         AddResource();
         SpawnUnitHotKey();
 
+        UpdatePopulaitionUI();
     }
 }
