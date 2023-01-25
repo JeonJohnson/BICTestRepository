@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1142481445301544116}
   m_Layer: 0
   m_Name: Trap
-  m_TagString: Environment
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 6565015924741160716}
   m_Layer: 0
   m_Name: model
-  m_TagString: Environment
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

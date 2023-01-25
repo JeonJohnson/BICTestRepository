@@ -46,9 +46,7 @@ public class Airplane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         transform.position += Time.deltaTime * Vector3.right * spd;
-
 
         if (transform.position.x >= 80f)
         {

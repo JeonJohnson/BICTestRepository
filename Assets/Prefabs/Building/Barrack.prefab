@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4311839225328827516}
   m_Layer: 8
   m_Name: model
-  m_TagString: Environment
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 5799077927529616915}
   m_Layer: 8
   m_Name: Barrack
-  m_TagString: Environment
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

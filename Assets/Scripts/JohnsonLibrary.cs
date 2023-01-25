@@ -100,32 +100,42 @@ public static class Funcs
 		return new Vector3(x, y, z);
 	}
 
-	//public static Structs.RayResult RayToWorld(Vector2 screenPos)
-	//{
-	//	//이걸 그냥 충돌한 놈이 그라운드 일때만 리턴하게?
-	//	//아니면 소환하는 곳에서 충돌된 놈이 그라운드가 아니면 그 새기 크기 판단해서 옆에 생성되게?
+	[System.Serializable]
+	public struct RayResult
+	{
+		public bool isHit;
+		public Vector3 hitPosition;
+		public GameObject hitObj;
+		public Ray ray;
+		public RaycastHit rayHit;
+	}
 
-	//	Structs.RayResult rayResult = new Structs.RayResult();
+	public static RayResult RayToWorld(Vector2 screenPos, LayerMask layer)
+	{
+		//이걸 그냥 충돌한 놈이 그라운드 일때만 리턴하게?
+		//아니면 소환하는 곳에서 충돌된 놈이 그라운드가 아니면 그 새기 크기 판단해서 옆에 생성되게?
 
-	//	Ray ray = Camera.main.ScreenPointToRay(screenPos);
-	//	RaycastHit castHit;
+		RayResult rayResult = new RayResult();
 
-	//	if (Physics.Raycast(ray, out castHit))
-	//	{
-	//		rayResult.hitPosition = castHit.point;
-	//		rayResult.hitPosition.y = 0f;
-	//		rayResult.hitObj = castHit.transform.gameObject;
-	//		rayResult.isHit = true;
-	//		rayResult.ray = ray;
-	//		rayResult.rayHit = castHit;
-	//	}
-	//	else
-	//	{
-	//		rayResult.isHit = false;
-	//	}
+		Ray ray = Camera.main.ScreenPointToRay(screenPos);
+		RaycastHit castHit;
 
-	//	return rayResult;
-	//}
+		if (Physics.Raycast(ray, out castHit, layer))
+		{
+			rayResult.hitPosition = castHit.point;
+			rayResult.hitPosition.y = 0f;
+			rayResult.hitObj = castHit.transform.gameObject;
+			rayResult.isHit = true;
+			rayResult.ray = ray;
+			rayResult.rayHit = castHit;
+		}
+		else
+		{
+			rayResult.isHit = false;
+		}
+
+		return rayResult;
+	}
 
 	public static void ChangeMesh(GameObject origin, Mesh mesh)
 	{

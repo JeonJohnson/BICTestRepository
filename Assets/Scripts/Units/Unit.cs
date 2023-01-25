@@ -56,6 +56,10 @@ public abstract class Unit : MonoBehaviour
 
     public NavMeshAgent navAgent;
 
+    public void SetDestination(Vector3 pos)
+    {
+        navAgent.SetDestination(pos);
+    }
 
     public void SetTransform(Transform tr)
     {

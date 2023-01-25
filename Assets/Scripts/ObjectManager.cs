@@ -15,6 +15,7 @@ public class ObjectManager : Manager<ObjectManager>
     //public Dictionary<string, GameObject>
 
 
+    public GameObject rallyFlag;
     public GameObject airplanePrefab;
 
     public GameObject bulletPrefab;
@@ -307,9 +308,8 @@ public class ObjectManager : Manager<ObjectManager>
                 break;
 
             case 1:
-                { 
-                    
-                
+                {
+                    RallySkill();
                 }
                 break;
 
@@ -324,7 +324,16 @@ public class ObjectManager : Manager<ObjectManager>
         {
             UseSkill(0);
         }
-    
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            UseSkill(1);
+        }
+    }
+
+    public void RallySkill()
+    {
+        rallyFlag.SetActive(true);
     }
 
 	private void Awake()
@@ -341,7 +350,7 @@ public class ObjectManager : Manager<ObjectManager>
 	// Start is called before the first frame update
 	void Start()
     {
-        
+        rallyFlag.SetActive(false);
         StartCoroutine(EnemySpawnCoroutine());
         
     }

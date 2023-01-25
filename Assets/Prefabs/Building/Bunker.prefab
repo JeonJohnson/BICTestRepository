@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1901805014061836935}
   m_Layer: 8
   m_Name: Model
-  m_TagString: Environment
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 7181026483379194049}
   m_Layer: 8
   m_Name: Bunker
-  m_TagString: Environment
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

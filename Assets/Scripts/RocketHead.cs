@@ -37,7 +37,7 @@ public class RocketHead : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         Debug.Log("Ãæµ¹");
-        if (other.CompareTag("Environment") | other.CompareTag("Enemy"))
+        if (other.CompareTag("Environment") | other.CompareTag("Enemy") | other.CompareTag("Building"))
         {
             var cols = Physics.OverlapSphere(transform.position, explosionRange, LayerMask.GetMask("Enemy"));
 
