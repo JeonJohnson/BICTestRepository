@@ -26,7 +26,7 @@ public class RocketHead : MonoBehaviour
     {
         curTime += Time.deltaTime;
 
-        transform.position += transform.forward * spd * Time.deltaTime;
+        //transform.position += transform.forward * spd * Time.deltaTime;
 
         if (curTime >= 5f)
         {

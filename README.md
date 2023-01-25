@@ -52,3 +52,8 @@ Unit 	- Humanoid
 	좀있다가 로켓하고 스킬 ㄱㄱ
 
 13:01 2023-01-25	로켓 작업완료
+	할거 : 스킬 ㄱㄱ
+
+https://velog.io/@acodeam/Unity-Projector-%EC%82%AC%EC%9A%A9%EC%8B%9C-%EC%9C%A0%EC%9D%98%EC%82%AC%ED%95%AD
+
+13:26 2023-01-25	폭격 스킬 완성

@@ -15,6 +15,8 @@ public class ObjectManager : Manager<ObjectManager>
     //public Dictionary<string, GameObject>
 
 
+    public GameObject airplanePrefab;
+
     public GameObject bulletPrefab;
     public GameObject rocketPrefab;
 
@@ -48,7 +50,7 @@ public class ObjectManager : Manager<ObjectManager>
 
     public Transform unitSpawnPos;
     public List<GameObject> unitPrefabs;
-    public List<Unit>[] units;
+    //public List<Unit>[] units;
     public List<Unit> aliveUnits;
 
     public void SettingBuildings()
@@ -228,6 +230,7 @@ public class ObjectManager : Manager<ObjectManager>
             GameObject newUnit = Instantiate(unitPrefabs[index]);
             newUnit.GetComponent<Unit>().SetTransform(unitSpawnPos);
 
+            aliveUnits.Add(newUnit.GetComponent<Unit>());
             ++curPop;
         }
 
@@ -239,6 +242,11 @@ public class ObjectManager : Manager<ObjectManager>
 
     public void SpawnUnit(int index, Vector3 pos)
     {
+        if (resource < 1)
+        {
+            return;
+        }
+
         int count = 1;
 
         switch (index)
@@ -259,10 +267,13 @@ public class ObjectManager : Manager<ObjectManager>
 
             GameObject newUnit = Instantiate(unitPrefabs[index]);
             newUnit.GetComponent<Unit>().SetPosition(pos);
+            aliveUnits.Add(newUnit.GetComponent<Unit>());
 
-
+            
             ++curPop;
         }
+
+        --resource;
 
         //UpdatePopulaitionUI();
 
@@ -278,6 +289,42 @@ public class ObjectManager : Manager<ObjectManager>
                 SpawnUnit(i - 49);
             }
         }
+    }
+
+
+    public void UseSkill(int index)
+    {
+		switch (index)
+		{
+            case 0:
+                {
+                    if (resource >= 5)
+                    {
+                        Instantiate(airplanePrefab);
+                        resource -= 5;
+                    }
+                }
+                break;
+
+            case 1:
+                { 
+                    
+                
+                }
+                break;
+
+			default:
+				break;
+		}
+	}
+
+    public void SkillHotKey()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            UseSkill(0);
+        }
+    
     }
 
 	private void Awake()
@@ -305,7 +352,7 @@ public class ObjectManager : Manager<ObjectManager>
         leftEnemyTxt.text = leftEnemyCount.ToString();
         AddResource();
         SpawnUnitHotKey();
-
+        SkillHotKey();
         UpdatePopulaitionUI();
     }
 }
