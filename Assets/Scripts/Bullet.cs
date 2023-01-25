@@ -5,6 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 
+    public bool isPenetrate;
+
     public float dmg;
 
     public float spd;
@@ -33,6 +35,8 @@ public class Bullet : MonoBehaviour
 
 	public void OnTriggerEnter(Collider other)
 	{
+        
+
         Debug.Log("충돌");
         if (other.CompareTag("Enemy"))
         {
@@ -42,7 +46,11 @@ public class Bullet : MonoBehaviour
             {
                 Debug.Log("적이랑 충돌");
                 other.GetComponent<Enemy>().Hit(dmg);
-                Destroy(gameObject);
+
+                if (!isPenetrate)
+                {
+                   Destroy(gameObject);
+                }
             }
         }
 	}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6366193667655246870}
   m_Layer: 8
   m_Name: Barricade-Wood
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 7144703120112218223}
   m_Layer: 8
   m_Name: model
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

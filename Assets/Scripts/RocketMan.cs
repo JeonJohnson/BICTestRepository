@@ -2,67 +2,69 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RifleMan : Unit
+public class RocketMan : Unit
 {
-	
-
-
-
 	public override void Heal()
 	{
-
 	}
 
 	public override void Hit()
 	{
-
 	}
 
 
 	protected override void Destoryed()
 	{
-
 	}
 
 	protected override Bullet Fire()
 	{
-
-		Bullet bulletScript = base.Fire();
-
-		if (bulletScript)
+		if (target != null && dist <= state.range)
 		{
-			bulletScript.isPenetrate = false;
+			curTime += Time.deltaTime;
+
+			if (curTime >= state.rapid)
+			{
+				GameObject bulletObj = Instantiate(ObjectManager.Instance.rocketPrefab);
+
+				bulletObj.transform.position = barrel.position;
+				bulletObj.transform.forward = dir;
+				bulletObj.GetComponent<RocketHead>().dmg = state.dmg;
+				bulletObj.GetComponent<RocketHead>().spd = bulletSpd;
+				--curRound;
+				curTime = 0f;
+
+				return bulletObj.GetComponent<Bullet>();
+			}
+
+			return null;
 		}
-
-		return bulletScript;
-		//if (target != null && dist <= state.range)
-		//{
-		//	curTime += Time.deltaTime;
-
-		//	if (curTime >= state.rapid)
-		//	{
-		//		GameObject bulletObj = Instantiate(ObjectManager.Instance.bulletPrefab);
-
-		//		bulletObj.transform.position = barrel.position;
-		//		bulletObj.transform.forward = dir;
-		//		bulletObj.GetComponent<Bullet>().dmg = state.dmg;
-		//		bulletObj.GetComponent<Bullet>().spd = 1.2f;
-		//		--curRound;
-		//		curTime = 0f;
-		//	}
-		//}
+		return null;
 	}
+
 
 	public override void Reload()
 	{
 		base.Reload();
+		//curTime += Time.deltaTime;
+
+		//if (curTime >= state.reloadTime)
+		//{
+		//	curRound = maxRound;
+		//}
 	}
+
 
 	protected override void Move()
 	{
 		base.Move();
-
 	}
+
+	protected override void Search()
+	{
+		base.Search();
+	}
+
 	protected override void Awake()
 	{
 		base.Awake();
@@ -71,8 +73,6 @@ public class RifleMan : Unit
 	protected override void Start()
 	{
 		base.Start();
-
-		curRound = maxRound;
 	}
 
 	protected override void Update()
@@ -92,7 +92,7 @@ public class RifleMan : Unit
 
 			dist = Vector3.Distance(transform.position, target.transform.position);
 			dir = (target.transform.position - transform.position).normalized;
-			
+
 			if (target.isDead)
 			{
 				target = null;
@@ -123,6 +123,5 @@ public class RifleMan : Unit
 
 
 
-		
 	}
 }

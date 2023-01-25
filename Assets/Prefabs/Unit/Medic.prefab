@@ -262,6 +262,7 @@ MonoBehaviour:
     healAmount: 10
     healTime: 1
     moveSpd: 0.7
+  bulletSpd: 3.3
   barrel: {fileID: 697535560685957857}
   maxRound: 30
   curRound: 30

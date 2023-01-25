@@ -138,6 +138,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3632658953791822608}
+  - component: {fileID: 5986014482085345983}
+  - component: {fileID: 2061040486405470888}
   m_Layer: 7
   m_Name: Sniper
   m_TagString: Untagged
@@ -162,6 +164,58 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &5986014482085345983
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5604251862380936986}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &2061040486405470888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5604251862380936986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09fda0863bdeee1468b05ee915064552, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state:
+    name_e: 3
+    maxHp: 270
+    curHp: 270
+    range: 7
+    dmg: 300
+    rapid: 1
+    reloadTime: 4
+    healAmount: 0
+    healTime: 0
+    moveSpd: 0.3
+  bulletSpd: 0.3
+  barrel: {fileID: 7308819509744475296}
+  maxRound: 5
+  curRound: 5
+  curTime: 0
+  target: {fileID: 0}
+  navAgent: {fileID: 0}
 --- !u!1001 &2852563579337865567
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -44,6 +44,7 @@ public abstract class Unit : MonoBehaviour
 {
     public UnitState state;
 
+    public float bulletSpd;
     public Transform barrel;
     public int maxRound;
     public int curRound;
@@ -70,7 +71,40 @@ public abstract class Unit : MonoBehaviour
         transform.position = pos;
         navAgent.enabled = true;
     }
-    protected abstract void Fire();
+    protected virtual Bullet Fire()
+    {
+        if (target != null && dist <= state.range)
+        {
+            curTime += Time.deltaTime;
+
+            if (curTime >= state.rapid)
+            {
+                GameObject bulletObj = Instantiate(ObjectManager.Instance.bulletPrefab);
+
+                bulletObj.transform.position = barrel.position;
+                bulletObj.transform.forward = dir;
+                bulletObj.GetComponent<Bullet>().dmg = state.dmg;
+                bulletObj.GetComponent<Bullet>().spd = bulletSpd;
+                --curRound;
+                curTime = 0f;
+
+                return bulletObj.GetComponent<Bullet>();
+            }
+
+            return null;
+        }
+        return null;
+    }
+
+    public virtual void Reload()
+    {
+        curTime += Time.deltaTime;
+
+        if (curTime >= state.reloadTime)
+        {
+            curRound = maxRound;
+        }
+    }
     public abstract void Hit();
     public abstract void Heal();
     protected abstract void Destoryed();
@@ -97,5 +131,21 @@ public abstract class Unit : MonoBehaviour
     protected virtual void Update()
     {
     }
+
+	private void OnDrawGizmosSelected()
+	{
+        Gizmos.color = Color.green;
+
+        Gizmos.DrawWireSphere(this.gameObject.transform.position, state.range);
+	}
+
+	//protected void OnDrawGizmos()
+	//{
+	//       Gizmos.color
+	//           = Color.red;
+
+
+	//}
+
 
 }

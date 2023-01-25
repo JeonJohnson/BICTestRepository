@@ -16,6 +16,7 @@ public class ObjectManager : Manager<ObjectManager>
 
 
     public GameObject bulletPrefab;
+    public GameObject rocketPrefab;
 
     public Transform enemySpawnPos;
     public GameObject enemyPrefab;

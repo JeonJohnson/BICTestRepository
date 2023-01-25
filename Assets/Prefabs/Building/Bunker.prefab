@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1901805014061836935}
   m_Layer: 8
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 7181026483379194049}
   m_Layer: 8
   m_Name: Bunker
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,3 +151,7 @@ MonoBehaviour:
     size: {x: 2, y: 2}
     offenseRange: 6
     spawnTime: 0.1
+  targetEnemy: {fileID: 0}
+  dist: 0
+  dir: {x: 0, y: 0, z: 0}
+  curTime: 0
