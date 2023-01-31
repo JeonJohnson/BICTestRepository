@@ -3,11 +3,8 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
-
+using System.Linq;
 using UnityEngine;
-using UnityEngine.Networking;
-
-using ExcelDataReader;
 
 public static class Funcs
 {
@@ -16,16 +13,11 @@ public static class Funcs
 		return Enum.GetName(typeof(T), index);
 	}
 
+
 	public static string TrimUnderBar(string str)
 	{
 		return str.Replace('_', ' ');
 	}
-
-	public static string ExpandUnderBar(string str)
-	{
-		return str.Replace(' ', '_');
-	}
-
 
 	public static int B2I(bool boolean)
 	{
@@ -37,6 +29,22 @@ public static class Funcs
 	public static bool I2B(int integer)
 	{
 		return Convert.ToBoolean(integer);
+	}
+
+	public static List<T> ListShuffle<T>(ref List<T> list)
+	{
+		System.Random rnd = new System.Random();
+		int n = list.Count;
+		while (n > 1)
+		{
+			n--;
+			int k = rnd.Next(n + 1);
+			T value = list[k];
+			list[k] = list[n];
+			list[n] = value;
+		}
+
+		return list;
 	}
 
 	public static bool IntegerRandomCheck(int percent)
@@ -69,19 +77,50 @@ public static class Funcs
 		return iRand;
 	}
 
-
-	public static List<T> Shuffle<T>(List<T> list)
+	public static Vector3 DegreeAngle2Dir(float degreeAngle)
 	{
-		for (int i = list.Count - 1; i > 0; i--)
-		{
-			System.Random random = new System.Random(Guid.NewGuid().GetHashCode());
-			int rnd = random.Next(0, i);
-			T temp = list[i];
-			list[i] = list[rnd];
-			list[rnd] = temp;
-		}
-		return list;
+		//각도를 벡터로 바꿔주는 거
+		
+		//ex)회전되지 않은 오브젝트인 경우
+			//rotation의 y값 euler값 넣으면 forward Dir나옴.
+
+		//조금 더 자세한 내용은 벡터 내적, 외적 봐보셈
+
+		float radAngle = degreeAngle * Mathf.Deg2Rad;
+		return new Vector3(Mathf.Sin(radAngle), 0f, Mathf.Cos(radAngle));
 	}
+
+	//public bool CheckInFovByGameObject(GameObject target, GameObject me,Structs.FovStruct fovStruct, float range)
+	//{
+	//	Collider[] hitObjs = Physics.OverlapSphere(me.transform.position, range);
+
+	//	if (hitObjs.Length == 0)
+	//	{
+	//		return false;
+	//	}
+
+	//	foreach (Collider col in hitObjs)
+	//	{
+	//		if (col.gameObject != target)
+	//		{
+	//			continue;
+	//		}
+
+	//		Vector3 dir = (target.transform.position - me.transform.position).normalized;
+
+	//		float angleToTarget = Mathf.Acos(Vector3.Dot(me.transform.forward, dir)) * Mathf.Rad2Deg;
+	//		//내적해주고 나온 라디안 각도를 역코사인걸어주고 오일러각도로 변환.
+	//		if (angleToTarget <= (fovStruct.fovAngle * 0.5f)
+	//			&& !Physics.Raycast(me.transform.position, dir, range/*, 여기에 인바이로먼트 레이어*/))
+	//		{
+	//			return true;
+	//		}
+	//	}
+
+	//	return false;
+	//}
+
+
 	public static Vector3 Random(Vector3 min, Vector3 max)
 	{
 		float x = UnityEngine.Random.Range(min.x, max.x);
@@ -100,27 +139,17 @@ public static class Funcs
 		return new Vector3(x, y, z);
 	}
 
-	[System.Serializable]
-	public struct RayResult
-	{
-		public bool isHit;
-		public Vector3 hitPosition;
-		public GameObject hitObj;
-		public Ray ray;
-		public RaycastHit rayHit;
-	}
-
-	public static RayResult RayToWorld(Vector2 screenPos, LayerMask layer)
+	public static Structs.RayResult RayToWorld(Vector2 screenPos)
 	{
 		//이걸 그냥 충돌한 놈이 그라운드 일때만 리턴하게?
 		//아니면 소환하는 곳에서 충돌된 놈이 그라운드가 아니면 그 새기 크기 판단해서 옆에 생성되게?
 
-		RayResult rayResult = new RayResult();
+		Structs.RayResult rayResult = new Structs.RayResult();
 
 		Ray ray = Camera.main.ScreenPointToRay(screenPos);
 		RaycastHit castHit;
 
-		if (Physics.Raycast(ray, out castHit, layer))
+		if (Physics.Raycast(ray, out castHit))
 		{
 			rayResult.hitPosition = castHit.point;
 			rayResult.hitPosition.y = 0f;
@@ -256,6 +285,7 @@ public static class Funcs
 
 			ragdollObj.GetChild(i).localPosition = originObj.GetChild(i).localPosition;
 			ragdollObj.GetChild(i).localRotation = originObj.GetChild(i).localRotation;
+
 		}
 	}
 
@@ -285,6 +315,15 @@ public static class Funcs
 		return false;
 	}
 
+	public static bool IsAnimationPlay(Animator animCtrl, string animationName, int animationLayer)
+	{
+		if (animCtrl.GetCurrentAnimatorStateInfo(animationLayer).IsName(animationName))
+		{//여기서 IsName은 애니메이션클립 이름이 아니라 애니메이터 안에 있는 노드이름임
+			return true;
+		}
+		return false;
+	}
+
 	public static T FindResourceFile<T>(string path) where T : UnityEngine.Object
 	{
 		T temp = Resources.Load<T>(path);
@@ -303,29 +342,31 @@ public static class Funcs
 
 		if (temp == null)
 		{
-			temp = new GameObject(name);
+			temp = new GameObject();
+			temp.name = name;
 		}
 
 		return temp;
 	}
 
-	public static GameObject CheckGameObjectExist<T>(string objName) where T : Component
+	public static GameObject CheckGameObjectExist<T>(string name) where T : Component
 	{
-		GameObject tempObj = GameObject.Find(objName);
+		GameObject temp = GameObject.Find(name);
 
-		if (tempObj == null)
+		if (temp == null)
 		{
-			tempObj = new GameObject(objName);
+			temp = new GameObject();
+			temp.name = name;
 		}
 
-		T tempComponent = tempObj.GetComponent<T>();
+		T tempComponent = temp.GetComponent<T>();
 
 		if (tempComponent == null)
 		{
-			tempObj.AddComponent<T>();
+			temp.AddComponent<T>();
 		}
 
-		return tempObj;
+		return temp;
 	}
 
 	public static T CheckComponentExist<T>(string gameObjectName) where T : Component
@@ -334,8 +375,8 @@ public static class Funcs
 
 		if (temp == null)
 		{
-			temp = new GameObject(gameObjectName);
-			//temp.name = gameObjectName;
+			temp = new GameObject();
+			temp.name = gameObjectName;
 		}
 
 		T tempComponent = temp.GetComponent<T>();
@@ -356,93 +397,48 @@ public static class Funcs
 	  //StreamingAssets폴더내의 있는 파일들은 다 뽑아내기때문에
 	  //유니티에서 지원하는?? 파일형식 제외하고는 저기 넣어야 안정적이겠즤
 
-		//UnityEngine.Networking. UnityWebRequest 를 이용하여 안드로이드, PC모두 읽어올 수 있도록
-		string androidPath = Application.streamingAssetsPath + "/" + filePath + ".txt";
+		string path = Application.streamingAssetsPath + "/";
+		path += filePath + ".txt";
 
-		UnityWebRequest uwrFile = UnityWebRequest.Get(androidPath);
-		uwrFile.SendWebRequest();
-		while (!uwrFile.isDone)
+
+		FileInfo fileInfo = new FileInfo(path);
+		string text;
+		if (fileInfo.Exists)
 		{
-			//파일 읽어올때까지 대기하기 이거 비동기방식임.	
+			StreamReader reader = new StreamReader(path);
+			text = reader.ReadToEnd();
+			reader.Close();
 		}
-		string str = "";
-		// str = uwrFile.downloadHandler.text;
-		if (uwrFile.result == UnityWebRequest.Result.Success)
-		{
-			str = uwrFile.downloadHandler.text;
-		}
-		else/*(uwrFile.result == UnityWebRequest.Result.ProtocolError)*/
+		else
 		{
 			Debug.Log(filePath + "에는 파일이 없읍니다. 확인요망");
-			str = "TextFile has no exist";
+			text = "TextFile has no exist";
 		}
-		return str;
+
+		return text;
 	}
 
 
-	public static string ExcelFileReader(string filePath)
+	public static GameObject FindManagerBoxes(bool isDontDestroy)
 	{
-		string loadString = string.Empty;
-		string fullPath = Application.streamingAssetsPath + "/" + filePath + ".xlsx";
-		var stream = File.Open(fullPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-		var reader = ExcelReaderFactory.CreateReader(stream);
+		GameObject boxObj = null;
 
-		var result = reader.AsDataSet();
-
-		for (int sheet = 0; sheet < result.Tables.Count; ++sheet)
+		if (isDontDestroy)
 		{
-			for (int row = 0; row < result.Tables[sheet].Rows.Count; ++row)
-			{
-				for (int i = 0; i < 15; ++i)
-				{
-					string data1 = result.Tables[sheet].Rows[row][i].ToString();
-					if (string.Compare(data1, string.Empty) == 0)
-					{
-						data1 = " ";
-					}
-					loadString += data1;
-				}
-				//loadString += '\n';
-			}
+			boxObj = CheckGameObjectExist("ManagerBox");
+			GameObject.DontDestroyOnLoad(boxObj);
 		}
-
-		return loadString;
-	}
-
-	public static void LineToList(string origin, ref List<string> list)
-	{
-		string line = string.Empty;
-
-		for (int i = 0; i < origin.Length; ++i)
+		else
 		{
-			if (origin[i] == '\n')
-			{
-				list.Add(line);
-				line = string.Empty;
-			}
-			else
-			{
-				line += origin[i];
-			}
+			boxObj = CheckGameObjectExist("ManagerBox_Destory");
 		}
+
+		return boxObj;
 	}
 
-
-
-	public static Color SetAlpha(Color color, float alpha)
-	{
-		Color tempColor = color;
-		tempColor.a = alpha;
-		return tempColor;
-	}
-
-	public static void SetAlpha(ref Color color, float alpha)
-	{
-		Color tempColor = color;
-		tempColor.a = alpha;
-		color = tempColor;
-	}
 }
+
+
 
 public static class Defines
 {
@@ -452,282 +448,99 @@ public static class Defines
 	public const int ally = 0;
 	public const int enemy = 1;
 
-	public const int winCX = 1024;
-	public const int winCY = 768;
+	public const float winCX = 1600f;
+	public const float winCY = 900f;
+
+	public const int tileX = 128;
+	public const int tileY = 128;
 
 	public const float gravity = -9.8f;
 
 	public const float PI = 3.14159265f;
 
-	public const float diceDefaultScale = 1f;
+	public static Vector3 TrashVector3 = new Vector3(float.MinValue, float.MinValue, float.MinValue);
 
-	public static string managerPrfabFolderPath = "Prefabs/Managers/";
 
-	public static bool DESTROY = false;
-	public static bool DONT_DESTROY = true;
+	public static string managerPrfabFolderPath = "ManagerPrefabs/";
+
 
 	public static Vector3[] test =
 	{
 		new Vector3(0f,0f,0f)
 	};
 
+	public static string[] enemyNameStr =
+	{ 
+		"Spirit",
+		"Archer"
+	};
+
+	public static string[] ArcherAnimTriggerStr =
+	{
+		"tIdle",
+		"tEquip",
+		"tWalk",
+		"tAttack",
+		"tHit",
+		"tLookAround",
+		"tDeath"
+	};
+
 }
 
-//namespace Enums
-//{
-//	public enum eScenes
-//	{ 
-//		//Intro,
-//		Title,
-//		//Menu,
-//		InGame,
-//		End
-//	}
-
-//	public enum ePoolingObj
-//	{ 
-//		End
-
-//	}
-
-//	public enum eDiceName
-//	{ 
-//		Default,
-//		Electric,
-//		//Ice,
-//		Iron,
-//		//Poison,
-//		Wind,
-//		End
-//	}
-
-//	public enum eTargetPriority
-//	{ 
-//		Front,
-//		Rear,
-//		Close,
-//		Random,
-//		MaxHpAmount,
-//		MinHpAmount,
-//		CurHp,
-//		End
-//	}
-
-//	public enum eAttackType
-//	{ 
-//		Default =1,
-//		Splash = 2, //스플뎀
-//		Range = 4, //범위 공격(설치형 등)
-//		Penetrate = 6, //관통형 (레이져)
-
-//	}
+namespace Enums
+{
+	public enum eScenes
+	{
+		Intro,
+		Title,
+		Lobby,
+		InGame,
+		End
+	}
 
 
-//	public enum eBuff
-//	{ 
-//		Dmg = 2,
-//		AttackSpd = 4,
+}
 
-//		//De_ 붙은건 디버프들
-//		De_Dmg = 8,
-//		De_AttackSpd = 16,
-//		De_Lock = 32,
-//		De_Defense = 64,
-//		De_Slow = 128,
-//	}
-
-//	//public enum eDebuff
-//	//{ 
-//	//	DecreaseDmg = 2,
-//	//	DecreaseSpd = 4,
-//	//	Lock = 6,
-//	//	DecreaseDefense = 8,
-//	//	Slow = 10,
-//	//}
-
-//}
-
-//namespace Structs
-//{
-//	[System.Serializable]
-//	public struct RayResult
-//	{
-//		public bool isHit;
-//		public Vector3 hitPosition;
-//		public GameObject hitObj;
-//		public Ray ray;
-//		public RaycastHit rayHit;
-//	}
-//	[System.Serializable]
-//	public struct Buff
-//	{
-//		public Buff(int buffBit)
-//		{
-//			buffFlag = (Enums.eBuff)(1 << buffBit);
-//		}
-
-//		public Buff(Enums.eBuff eBuffBit)
-//		{
-//			buffFlag = (Enums.eBuff)(1 << (int)eBuffBit);
-//		}
-
-//		public static Buff operator +(Buff b1, Buff b2)
-//		{
-//			//버프 추가하기
-//			return new Buff(b1.buffFlag | b2.buffFlag);
-//		}
-
-//		public static Buff operator +(Buff b1, Enums.eBuff b2)
-//		{
-//			//버프 추가하기
-//			return new Buff(b1.buffFlag | b2);
-//		}
-
-//		public static Buff operator -(Buff b1, Buff b2)
-//		{
-//			return new Buff(b1.buffFlag ^ b2.buffFlag);
-//		}
-
-//		public static Buff operator -(Buff b1, Enums.eBuff b2)
-//		{
-//			return new Buff(b1.buffFlag ^ b2);
-//		}
-
-//		public static bool operator & (Buff b1, Enums.eBuff flag)
-//		{
-//			if ((b1.buffFlag & flag) == 0)
-//			{
-//				return false;
-//			}
-//			else { return true; }
-//		}
-
-//		//public static bool operator !=(Buff b1, Buff b2)
-//		//{
-//		//	if ((b1.bitMask & b2.bitMask) == 0)
-//		//	{
-//		//		return true;
-//		//	}
-//		//	else { return false; }
-//		//}
+namespace Structs
+{
+	[System.Serializable]
+	public struct RayResult
+	{
+		public bool isHit;
+		public Vector3 hitPosition;
+		public GameObject hitObj;
+		public Ray ray;
+		public RaycastHit rayHit;
+	}
 
 
-//		//public override bool Equals(object obj)
-//		//{//== 를 연산자 오버라이딩 하기 위해서는 이렇게 기본 Equals 재정의 해야함.
-//		//	return obj is Buff buff &&
-//		//		   bitMask == buff.bitMask;
-//		//}
-//		[EnumFlags]
-//		public Enums.eBuff buffFlag;
+	[System.Serializable]
+	public struct EnemyStatus
+	{
 
-//		public void SetBuff(Enums.eBuff bit)
-//		{
-//			buffFlag = bit;
-//		}
+    }
 
-//		public void AddBuff(Enums.eBuff bit)
-//		{
-//			buffFlag = buffFlag | bit;
-//		}
+	[System.Serializable]
+	public struct PlayerStatus
+	{
 
-//		public void RemoveBuff(Enums.eBuff bit)
-//		{
-//			buffFlag = buffFlag ^ bit;
-//		}
+	}
 
-//	}
+	[System.Serializable]
+	public struct WeaponStatus
+	{
 
-//	[System.Serializable]
-//	public struct PlayerStatus
-//	{
-//		public int maxHp;
-//		public int curHp;
+	}
 
 
-//		public int gold; //로비에서쓸것
+	[System.Serializable]
+	public struct DamagedStruct
+	{
 
-//		public float Sp;
-
-//		public float SpSpd;
-
-//		public float dicePrice;
-//		public float dicePriceInc;
-//	}
-
-//	[System.Serializable]
-//	public struct Index
-//	{
-//		public void SetIndex(int x, int y)
-//		{
-//			row = x;
-//			col = y;
-//		}
-//		int row;
-//		int col;
-//	}
-
-//	//[System.Serializable]
-//	//public struct DiceStatus
-//	//{
-//	//	public Enums.eDiceName eName;
-//	//	public string strName;
-//	//	public int spot;
-
-//	//	public Index index;
-
-//	//	public Enums.eTargetPriority targetPriority;
-
-//	//	public Enums.eAttackType atkType;
-//	//	public Buff atkEffect;
-
-//	//	public float dmg;
-//	//	//public float dmgIncre;
-
-//	//	[Range(0, 100f)]
-//	//	public float critialPercent;
-
-//	//	public float atkMaxTime;
-//	//	public float atkCurTime;
-
-//	//	public float coolMaxTime; //스킬 쿨타임
-//	//	public float coolCurTime;
-
-//	//	public float skillMaxDuration; //스킬 지속시간
-//	//	public float skillCurDuration; //스킬 지속시간
-
-//	//	public Buff buff;//현재 걸린거
-//	//}
-
-//	[System.Serializable]
-//	public struct EnemyStatus
-//	{
-//		public float maxHp;
-//		public float curHp;
-
-//		public float moveSpd;
-
-//		public float coolMaxTime;
-//		public float coolCurTime;
-
-//		public Buff buff;
-//	}
+	}
 
 
-
-//	[System.Serializable]
-//	public struct DamagedStruct
-//	{
-//		public int dmg;
-//		public Enums.eAttackType type;
-//		public float tickTime;
-//		public bool isCrit;
-//		//public Vector3 explosionPos;
-//		//public Vector3 dmgDir;
-//		//public Vector3 hitWordPosition;
-
-//		//public bool isDebug;
-//	}
-
-
-//}
+    
+}
 
