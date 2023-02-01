@@ -34,18 +34,20 @@ public class CameraController : MonoBehaviour
         {
             transform.position -= (Vector3.right * Time.deltaTime * camScrollSpd);
         }
-        else if (mousePos.x >= 0.99f)
+        
+        if (mousePos.x >= 0.99f)
         {
             transform.position += (Vector3.right * Time.deltaTime * camScrollSpd);
         }
 
         if (mousePos.y <= 0.01f)
         {
-            transform.position -= ( Vector3.forward * Time.deltaTime * camScrollSpd);
+            transform.position -= (Vector3.forward * Time.deltaTime * camScrollSpd);
         }
-        else if (mousePos.y >= 0.99f)
+
+        if (mousePos.y >= 0.99f)
         {
-            transform.position += ( Vector3.forward * Time.deltaTime * camScrollSpd);
+            transform.position += (Vector3.forward * Time.deltaTime * camScrollSpd);
         }
 
 
@@ -53,9 +55,9 @@ public class CameraController : MonoBehaviour
         Vector3 RT = mainCam.ViewportToWorldPoint(new Vector3(1, 1, transform.position.y));
 
         if (LB.x <= minX
-            | RT.x >= maxX
-            | LB.z <= minZ
-            |RT.z >= maxZ)
+            |   RT.x >= maxX
+            |   LB.z <= minZ
+            |   RT.z >= maxZ)
         {
             Debug.Log("더 ㄴㄴㄴㄴㄴ");
             transform.position = originPos;  
