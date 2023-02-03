@@ -451,8 +451,8 @@ public static class Defines
 	public const float winCX = 1600f;
 	public const float winCY = 900f;
 
-	public const int tileX = 128;
-	public const int tileY = 128;
+	public const int tileX = 64;
+	public const int tileY = 64;
 
 	public const float gravity = -9.8f;
 
