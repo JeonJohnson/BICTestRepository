@@ -12,7 +12,8 @@ public class MapGen : MonoBehaviour
     int cubeSize = 1;
     
     public GameObject prefab;
-   
+
+    public Material PlaneMat;
 
 
 	private void Awake()
@@ -21,7 +22,10 @@ public class MapGen : MonoBehaviour
 	}
 	void Start()
     {
-        float side = Mathf.Sqrt(0.5f);
+
+
+
+        float side = Mathf.Sqrt(cubeSize * 0.5f);
         //x = Defines.tileX;
         //y = Defines.tileY;
         mapArr = new GameObject[Defines.tileX, Defines.tileY];
@@ -42,7 +46,29 @@ public class MapGen : MonoBehaviour
                 mapArr[row, col] = obj;
                 mapArr[row, col].transform.position = new Vector3(pos.x, 0f, pos.y);
 
-                obj.transform.SetParent(transform);
+    //            int iRand = Random.Range(0, 3);
+    //            Material copymat = Instantiate(PlaneMat);
+    //            switch (iRand)
+				//{
+    //                case 0:
+    //                    { copymat.color = Color.white; }
+    //                    break;
+    //                case 1:
+    //                    { copymat.color = Color.blue; }
+    //                    break;
+    //                case 2:
+    //                    { copymat.color = Color.green; }
+    //                    break;
+				//	default:
+				//		break;
+				//}
+    //            GameObject temp = obj.transform.Find("Mesh").gameObject;
+    //            MeshRenderer mr = temp.GetComponent<MeshRenderer>();
+    //            var mts = mr.materials;
+    //            mts[0] = copymat;
+    //            mr.materials = mts;
+
+				obj.transform.SetParent(transform);
                 //mapArr[, k] = Instantiate(prefab);
                 //mapArr[i, k].transform.position = new Vector3(i, 0f, k);
                 //mapArr[i, k].transform.SetParent(transform);

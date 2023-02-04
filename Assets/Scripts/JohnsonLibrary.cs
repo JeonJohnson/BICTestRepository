@@ -166,6 +166,60 @@ public static class Funcs
 		return rayResult;
 	}
 
+
+	public static bool RayToWorld(ref Structs.RayResult result, Vector2 screenPos)
+	{
+		//이걸 그냥 충돌한 놈이 그라운드 일때만 리턴하게?
+		//아니면 소환하는 곳에서 충돌된 놈이 그라운드가 아니면 그 새기 크기 판단해서 옆에 생성되게?
+
+		//Structs.RayResult rayResult = new Structs.RayResult();
+
+		Ray ray = Camera.main.ScreenPointToRay(screenPos);
+		RaycastHit castHit;
+
+		if (Physics.Raycast(ray, out castHit))
+		{
+			result.hitPosition = castHit.point;
+			result.hitPosition.y = 0f;
+			result.hitObj = castHit.transform.gameObject;
+			result.isHit = true;
+			result.ray = ray;
+			result.rayHit = castHit;
+
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+
+	}
+
+	public static bool RayToWorld(ref Structs.RayResult result, Vector3 dir, Vector3 origin)
+	{
+		//Ray ray = Camera.main.ScreenPointToRay(screenPos);
+		//Vector3 origin = Camera.main.ScreenToWorldPoint(screenPos);
+		//Ray ray = new Ray(origin, dir);
+		RaycastHit castHit;
+
+		if (Physics.Raycast(origin, dir, out castHit))
+		{
+			result.hitPosition = castHit.point;
+			result.hitPosition.y = 0f;
+			result.hitObj = castHit.transform.gameObject;
+			result.isHit = true;
+			//result.ray = ray;
+			result.rayHit = castHit;
+
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+
+	}
+
 	public static void ChangeMesh(GameObject origin, Mesh mesh)
 	{
 		MeshFilter tempFilter = origin.GetComponent<MeshFilter>();

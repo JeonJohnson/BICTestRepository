@@ -716,14 +716,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1227113685}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1023910664
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,15 +828,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1227113684}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
+  m_LocalPosition: {x: 32.19, y: 10, z: 23.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 963194228}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
 --- !u!114 &1227113686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -851,8 +851,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camScrollSpd: 10
   zoomSpd: 50
-  minZoom: 0
+  minZoom: 2
   maxZoom: 5
+  mapClampX: {x: 0, y: 89}
+  mapClampY: {x: 0, y: 44.5}
 --- !u!1 &1251873333
 GameObject:
   m_ObjectHideFlags: 0
@@ -884,7 +886,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 0
   y: 0
-  prefab: {fileID: 4147664754580099146, guid: 74fab1a4d5ea9494f91e6ced302d083a, type: 3}
+  prefab: {fileID: 4147664754580099146, guid: 9220f735e03840642826861db6fd819b, type: 3}
+  PlaneMat: {fileID: 2100000, guid: bc1cc49f5a3927346b05160e72b220fe, type: 2}
 --- !u!4 &1251873335
 Transform:
   m_ObjectHideFlags: 0
