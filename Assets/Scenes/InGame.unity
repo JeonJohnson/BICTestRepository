@@ -424,6 +424,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208703614}
   m_CullTransparentMesh: 1
+--- !u!1 &423868525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 423868527}
+  - component: {fileID: 423868526}
+  m_Layer: 3
+  m_Name: Quad
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!64 &423868526
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423868525}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &423868527
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423868525}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 200, y: 200, z: 200}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,6 +860,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1227113685}
   - component: {fileID: 1227113686}
+  - component: {fileID: 1227113687}
   m_Layer: 0
   m_Name: RTSCam
   m_TagString: Untagged
@@ -844,7 +891,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1227113684}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0910dde7b6dade84492e03ccf14c5a76, type: 3}
   m_Name: 
@@ -855,6 +902,51 @@ MonoBehaviour:
   maxZoom: 5
   mapClampX: {x: 0, y: 89}
   mapClampY: {x: 0, y: 44.5}
+  LTDir: {x: 0, y: 0, z: 0}
+  RTDir: {x: 0, y: 0, z: 0}
+  RBDir: {x: 0, y: 0, z: 0}
+  LBDir: {x: 0, y: 0, z: 0}
+  boundaryDir:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+--- !u!114 &1227113687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227113684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0a4bd001ce8024f98179c0dff92d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomSpd: 50
+  zoomMin: 2
+  zoomMax: 5
+  scrollSpd: 10
+  mapBoundary:
+    xMin: 0
+    xMax: 89
+    yMin: 0
+    yMax: 44.5
+  camClampBoundary:
+    xMin: 0
+    xMax: 0
+    yMin: 0
+    yMax: 0
+  camBoundary:
+    LT: {x: 0, y: 0, z: 0}
+    RT: {x: 0, y: 0, z: 0}
+    RB: {x: 0, y: 0, z: 0}
+    LB: {x: 0, y: 0, z: 0}
+  camBoundDir:
+    LT: {x: 0, y: 0, z: 0}
+    RT: {x: 0, y: 0, z: 0}
+    RB: {x: 0, y: 0, z: 0}
+    LB: {x: 0, y: 0, z: 0}
 --- !u!1 &1251873333
 GameObject:
   m_ObjectHideFlags: 0

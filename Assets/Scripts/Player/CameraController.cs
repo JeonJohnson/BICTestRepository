@@ -18,10 +18,29 @@ public class CameraController : MonoBehaviour
 
     public Vector2 mapClampX;
     public Vector2 mapClampY;
-	//float minZ;
-	//float maxZ;
+
+    //size에 따른 각 렌더링 바운더리부터  카메라 위치까지의 Dir
+    public Vector3 LTDir;
+    public Vector3 RTDir;
+    public Vector3 RBDir;
+    public Vector3 LBDir;
+
+    public Vector3[] boundaryDir = new Vector3[4];
+
+    //float minZ;
+    //float maxZ;
     //int cubeSize = 1;
-	private void CamScroll_Old()
+
+
+//    직교투영 렌더 바운더리의 각 꼭짓점 pos 구한 다음
+//카메라 위치와 각 pos의 차이벡터를 구한뒤에
+//맵상 LT, RT, RB, LB 한계지점 계산해서
+//그에 맞는 카메라 pos의 clamp를 애초에 구하고 게임 시작한 뒤
+//못 넘게하기!!!
+
+//*스크롤을 먼저하고 그 다음에 위치확인해서 클램프 걸기
+
+    private void CamScroll_Old()
     {
         Vector3 moveVal = Vector3.zero;
         
@@ -184,28 +203,11 @@ public class CameraController : MonoBehaviour
         {
             return false;
         }
-
     }
 
 
-    void CamZoom()
+    void CamZoom_Old()
     {
-        float wheelScroll = Input.GetAxis("Mouse ScrollWheel");
-        //Debug.Log(wheelScroll);
-        //스크롤 다운 -> 음수
-        //스크롤 업 -> 양수
-        
-        if (wheelScroll == 0f)
-        {
-            return;
-        }
-
-        float zoomVal = (-1f* wheelScroll * zoomSpd * Time.deltaTime) + mainCam.orthographicSize;
-        //Debug.Log(zoomVal);
-
-        mainCam.orthographicSize = Mathf.Clamp(zoomVal, minZoom, maxZoom);
-
-
         #region oldZooom
         //float wheelScroll = Input.GetAxis("Mouse ScrollWheel");
 
@@ -262,6 +264,62 @@ public class CameraController : MonoBehaviour
         ////      mainCam.fieldOfView -= wheelScroll * Time.deltaTime * zoomSpd;
         #endregion
     }
+
+    void CamZoom()
+    {
+        float wheelScroll = Input.GetAxis("Mouse ScrollWheel");
+        //Debug.Log(wheelScroll);
+        //스크롤 다운 -> 음수
+        //스크롤 업 -> 양수
+
+        if (wheelScroll == 0f)
+        {
+            return;
+        }
+
+        float zoomVal = (-1f * wheelScroll * zoomSpd * Time.deltaTime) + mainCam.orthographicSize;
+        //Debug.Log(zoomVal);
+
+        mainCam.orthographicSize = Mathf.Clamp(zoomVal, minZoom, maxZoom);
+
+        CamBoundaryCalc();
+    }
+
+    bool CheckOrthoCamBoundary(ref Vector3 bounday, Vector2 viewPortPos)
+    {
+        Vector3 worldPos = mainCam.ViewportToWorldPoint(viewPortPos);
+
+        Vector3 camDir = mainCam.transform.forward;
+
+        var ray1 = new Structs.RayResult();
+
+        if (Funcs.RayToWorld(ref ray1, camDir, worldPos))
+        {
+            return true; //화면 안.
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    Vector3[] CamBoundaryCalc()
+    {
+        var arr = new Vector3[4];
+
+        CheckOrthoCamBoundary(ref arr[0], new Vector3(0, 0));
+        CheckOrthoCamBoundary(ref arr[1], new Vector3(1, 0));
+        CheckOrthoCamBoundary(ref arr[2], new Vector3(1, 1));
+        CheckOrthoCamBoundary(ref arr[3], new Vector3(0, 1));
+
+        for (int i = 0; i < 4; ++i)
+        {
+            boundaryDir[i] = transform.position - arr[i];
+        }
+
+        return arr;
+    }
+    
 
     private void Awake()
 	{  
