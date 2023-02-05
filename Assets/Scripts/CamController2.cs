@@ -5,7 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public struct Boundary
 {
-
     public static Boundary zero
     {
         get

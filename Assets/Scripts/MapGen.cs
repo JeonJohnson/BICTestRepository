@@ -37,6 +37,7 @@ public class MapGen : MonoBehaviour
             for (int row = 0; row < Defines.tileX; ++row)
             {
                 GameObject obj = Instantiate(prefab);
+                obj.tag = "Terrain";
                 TestCube script = obj.GetComponent<TestCube>();
 
                 string xStr = row < 10 ? "0" + row.ToString() : row.ToString();
