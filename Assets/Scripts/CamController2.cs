@@ -46,6 +46,7 @@ public struct Vec3Boundary
     public Vector3 RT;
     public Vector3 RB;
     public Vector3 LB;
+    public Vector2 Center;
 }
 
 public class CamController2 : MonoBehaviour
@@ -66,7 +67,8 @@ public class CamController2 : MonoBehaviour
 
 	public float scrollSpd;
 
-    public Boundary mapBoundary;
+    public Boundary mapBoundary; //카메라Clamp기준이 될 맵 각 방향 위치
+
     public Boundary camClampBoundary; //카메라 clamp걸 용도;
 
     public Vec3Boundary camBoundary;//직교투영카메라 렌더링 바운더리 모서리 4위치

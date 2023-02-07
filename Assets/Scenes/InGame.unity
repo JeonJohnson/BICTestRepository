@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -777,7 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae7e5d4d4f859254b921d6af410f703f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeBuilding: {fileID: 0}
+  selectedBuilding: {fileID: 0}
 --- !u!4 &875715405
 Transform:
   m_ObjectHideFlags: 0
@@ -1081,11 +1081,13 @@ MonoBehaviour:
     RT: {x: 0, y: 0, z: 0}
     RB: {x: 0, y: 0, z: 0}
     LB: {x: 0, y: 0, z: 0}
+    Center: {x: 0, y: 0}
   camBoundDir:
     LT: {x: 0, y: 0, z: 0}
     RT: {x: 0, y: 0, z: 0}
     RB: {x: 0, y: 0, z: 0}
     LB: {x: 0, y: 0, z: 0}
+    Center: {x: 0, y: 0}
 --- !u!1 &1251873333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,9 +1117,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf7ba2facd7e7684293530e36023cc60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x: 0
-  y: 0
-  prefab: {fileID: 4147664754580099146, guid: 9220f735e03840642826861db6fd819b, type: 3}
+  firstPos: {x: 0, y: 0}
+  xCount: 128
+  yCount: 128
+  shape: 1
+  mapBoundary:
+    LT: {x: 0, y: 0, z: 0}
+    RT: {x: 0, y: 0, z: 0}
+    RB: {x: 0, y: 0, z: 0}
+    LB: {x: 0, y: 0, z: 0}
+    Center: {x: 0, y: 0}
+  tilePrefab: {fileID: 4147664754580099146, guid: 9220f735e03840642826861db6fd819b, type: 3}
   PlaneMat: {fileID: 2100000, guid: bc1cc49f5a3927346b05160e72b220fe, type: 2}
 --- !u!4 &1251873335
 Transform:
