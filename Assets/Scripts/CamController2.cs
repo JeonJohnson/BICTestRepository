@@ -46,7 +46,7 @@ public struct Vec3Boundary
     public Vector3 RT;
     public Vector3 RB;
     public Vector3 LB;
-    public Vector2 Center;
+    public Vector3 Center;
 }
 
 public class CamController2 : MonoBehaviour
@@ -74,12 +74,29 @@ public class CamController2 : MonoBehaviour
     public Vec3Boundary camBoundary;//직교투영카메라 렌더링 바운더리 모서리 4위치
     public Vec3Boundary camBoundDir; //각 모서리 부터 카메라까지의 차이벡터
 
+    void FindMapInfo()
+    {
+        var mapGen = GameObject.Find("MapGen").GetComponent<MapGen>();
+
+        mapBoundary.xMin = mapGen.mapBoundary.LT.x;
+        mapBoundary.xMax = mapGen.mapBoundary.RB.x;
+
+
+        
+        mapBoundary.yMin = mapGen.mapBoundary.LT.z < mapGen.mapBoundary.RB.z ? mapGen.mapBoundary.LT.z : mapGen.mapBoundary.RB.z;
+        mapBoundary.yMax = mapGen.mapBoundary.LT.z > mapGen.mapBoundary.RB.z ? mapGen.mapBoundary.LT.z : mapGen.mapBoundary.RB.z;
+
+    }
     void SetInitPos()
     {
-        float x = (mapBoundary.xMin + mapBoundary.xMax) * 0.5f;
-        float y = (mapBoundary.yMin + mapBoundary.yMax) * 0.5f;
+        FindMapInfo();
 
-        transform.position = new Vector3(x, 10, y);
+        var mapGen = GameObject.Find("MapGen").GetComponent<MapGen>();
+        
+        //float x = (mapBoundary.xMin + mapBoundary.xMax) * 0.5f;
+        //float y = (mapBoundary.yMin + mapBoundary.yMax) * 0.5f;
+
+        transform.position = new Vector3(mapGen.mapBoundary.Center.x, 10, mapGen.mapBoundary.Center.z);
 
         UpdateCamBoundary();
     }
@@ -199,8 +216,11 @@ public class CamController2 : MonoBehaviour
 
         //transform.position += moveVal;
 
+        Debug.Log($"clamp전 : {moveVal.x},{moveVal.z}");
         moveVal.x = Mathf.Clamp(moveVal.x, camClampBoundary.xMin, camClampBoundary.xMax);
         moveVal.z = Mathf.Clamp(moveVal.z, camClampBoundary.yMin, camClampBoundary.yMax);
+
+        Debug.Log($"clamp후 : {moveVal.x},{moveVal.z}");
 
         transform.position = moveVal;
     }
@@ -215,6 +235,8 @@ public class CamController2 : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
+        
+        
         SetInitPos();
         
     }

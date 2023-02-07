@@ -31,6 +31,7 @@ public class MapGen : MonoBehaviour
         GameObject obj = Instantiate(tilePrefab);
         obj.tag = "Terrain";
         obj.transform.position = new Vector3(pos.x, 0f, pos.y);
+        obj.transform.SetParent(transform);
 
         TestCube script = obj.GetComponent<TestCube>();
         string xStr = row < 10 ? "0" + row.ToString() : row.ToString();
@@ -38,6 +39,20 @@ public class MapGen : MonoBehaviour
         script.posTex.text = $"({xStr},{yStr})";
 
         return obj;
+    }
+
+    Vector3 CenterPos(Vector3 pos1, Vector3 pos2)
+    {
+        Vector3 dir = (pos1 - pos2).normalized;
+        float dist = Vector3.Distance(pos1, pos2);
+        return pos2 + (dir * (dist * 0.5f));
+    }
+
+    Vector3 CenterPos(GameObject pos1, GameObject pos2)
+    {
+        Vector3 dir = (pos1.transform.position - pos2.transform.position).normalized;
+        float dist = Vector3.Distance(pos1.transform.position, pos2.transform.position);
+        return pos2.transform.position + (dir * (dist * 0.5f));
     }
 
     void RhombusMapGen()
@@ -56,13 +71,19 @@ public class MapGen : MonoBehaviour
                 curPos.x += cubeDiagonalSize;
                 curPos.y -= cubeDiagonalSize;
 
-                CreateTile(curPos, x, y);
+                mapArr[x,y] = CreateTile(curPos, x, y);
             }
 
             curPos.x = firstPos.x - (cubeDiagonalSize * y);
             curPos.y = firstPos.y - (cubeDiagonalSize * y);
         }
 
+        mapBoundary.LT = CenterPos(mapArr[0, 0], mapArr[0, yCount-1]);
+        mapBoundary.RT = CenterPos(mapArr[0, 0], mapArr[xCount-1, 0]);
+        mapBoundary.RB = CenterPos(mapArr[xCount-1, 0], mapArr[xCount-1, yCount-1]);
+        mapBoundary.LB = CenterPos(mapArr[xCount-1, yCount-1], mapArr[0, yCount-1]);
+
+        mapBoundary.Center = CenterPos(mapBoundary.LT, mapBoundary.RB);
     }
 
     void SquareMapGen()
@@ -132,6 +153,12 @@ public class MapGen : MonoBehaviour
             pos.y += side;
         }
 
+        mapBoundary.LT = CenterPos(mapArr[0, 0], mapArr[0, yCount - 1]);
+        mapBoundary.RT = CenterPos(mapArr[0, 0], mapArr[xCount - 1, 0]);
+        mapBoundary.RB = CenterPos(mapArr[xCount - 1, 0], mapArr[xCount - 1, yCount - 1]);
+        mapBoundary.LB = CenterPos(mapArr[xCount - 1, yCount - 1], mapArr[0, yCount - 1]);
+
+        mapBoundary.Center = CenterPos(mapBoundary.LT, mapBoundary.RB);
     }
 
 
@@ -156,16 +183,23 @@ public class MapGen : MonoBehaviour
         }
 
     }
-    void Start()
-    {
+ 
 
+	private void OnDrawGizmosSelected()
+	{
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(mapBoundary.LB,5f);
 
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(mapBoundary.RB, 5f);
 
-	}
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(mapBoundary.RT, 5f);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(mapBoundary.LT, 5f);
+
+        Gizmos.color = Color.black;
+        Gizmos.DrawSphere(mapBoundary.Center, 2.5f);
     }
 }

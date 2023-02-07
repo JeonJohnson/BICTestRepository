@@ -493,13 +493,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 423868525}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 200, y: 200, z: 200}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -100}
+  m_LocalScale: {x: 200, y: 200.00008, z: 200.00008}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &645137002
 GameObject:
@@ -1081,13 +1081,13 @@ MonoBehaviour:
     RT: {x: 0, y: 0, z: 0}
     RB: {x: 0, y: 0, z: 0}
     LB: {x: 0, y: 0, z: 0}
-    Center: {x: 0, y: 0}
+    Center: {x: 0, y: 0, z: 0}
   camBoundDir:
     LT: {x: 0, y: 0, z: 0}
     RT: {x: 0, y: 0, z: 0}
     RB: {x: 0, y: 0, z: 0}
     LB: {x: 0, y: 0, z: 0}
-    Center: {x: 0, y: 0}
+    Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1251873333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,7 +1126,7 @@ MonoBehaviour:
     RT: {x: 0, y: 0, z: 0}
     RB: {x: 0, y: 0, z: 0}
     LB: {x: 0, y: 0, z: 0}
-    Center: {x: 0, y: 0}
+    Center: {x: 0, y: 0, z: 0}
   tilePrefab: {fileID: 4147664754580099146, guid: 9220f735e03840642826861db6fd819b, type: 3}
   PlaneMat: {fileID: 2100000, guid: bc1cc49f5a3927346b05160e72b220fe, type: 2}
 --- !u!4 &1251873335
@@ -1142,7 +1142,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1519881376
 GameObject:
