@@ -66,16 +66,16 @@ public class MapGen : MonoBehaviour
 
         for (int y = 0; y < yCount; ++y)
         {
-            for (int x = 0; x < xCount; ++x)
-            {
-                curPos.x += cubeDiagonalSize;
-                curPos.y -= cubeDiagonalSize;
-
-                mapArr[x,y] = CreateTile(curPos, x, y);
-            }
-
             curPos.x = firstPos.x - (cubeDiagonalSize * y);
             curPos.y = firstPos.y - (cubeDiagonalSize * y);
+
+            for (int x = 0; x < xCount; ++x)
+            {
+                mapArr[x,y] = CreateTile(curPos, x, y);
+
+                curPos.x += cubeDiagonalSize;
+                curPos.y -= cubeDiagonalSize;
+            }
         }
 
         mapBoundary.LT = CenterPos(mapArr[0, 0], mapArr[0, yCount-1]);
