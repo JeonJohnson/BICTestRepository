@@ -125,7 +125,7 @@ public class BuildingPlacer : MonoBehaviour
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit,100f, LayerMask.NameToLayer("Terrain")))
+            if (Physics.Raycast(ray, out hit,100f, LayerMask.GetMask("Terrain")))
             {
                 GameObject tileObj = hit.collider.gameObject;
 

@@ -176,7 +176,7 @@ public class CamController2 : MonoBehaviour
         //GetMask로 바로 불러와서 쓰던가
         //nameToLayer로 불러와서 1 << nameToLayer 해야함.
         //Ray쓸때에는 Index(NameToLayer)로 하면됨!
-        if (Physics.Raycast(ray, out rayResult,100f, nameToLayer))
+        if (Physics.Raycast(ray, out rayResult,100f, getMask))
         {
             boundary = rayResult.point;
         }
