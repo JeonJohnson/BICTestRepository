@@ -70,10 +70,29 @@ public class BuildingPlacer : MonoBehaviour
         isPlacing = true;
     }
 
+    public void SettingOneRowRectangleGrid(int xSize)
+    {
+        SettingRectangleGrid(xSize, 1);
+    }
+
+    public void SettingOneColRectangleGrid(int ySize)
+    {
+        SettingRectangleGrid(1, ySize);
+    }
+
     public void SettingRectangleGrid(int xSize, int ySize)
     {
+        curSize.x = xSize;
+        curSize.y = ySize;
 
-
+        for (int y = 0; y < curSize.y; ++y)
+        {
+            for (int x = 0; x < curSize.x; ++x)
+            {
+                grids[x, y].SetActive(true);
+            }
+        }
+        isPlacing = true;
     }
 
     public void CancelPlace()
@@ -101,6 +120,19 @@ public class BuildingPlacer : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 CancelPlace();
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                for (int y = 0; y < 5; ++y)
+                {
+                    for (int x = 0; x < 5; ++x)
+                    {
+                        grids[x, y].SetActive(false);
+                    }
+                }
+                SettingRectangleGrid((int)curSize.y, (int)curSize.x);
                 return;
             }
 
