@@ -60,13 +60,15 @@ public class CamController2 : MonoBehaviour
     //*스크롤을 먼저하고 그 다음에 위치확인해서 클램프 걸기
 
     Camera mainCam;
-    public Camera minimapCam;
+
+
+
 
     public float zoomSpd;
     public float zoomMin;
     public float zoomMax;
 
-	public float scrollSpd;
+    public float scrollSpd;
 
     public Boundary mapBoundary; //카메라Clamp기준이 될 맵 각 방향 위치
 
@@ -74,6 +76,9 @@ public class CamController2 : MonoBehaviour
 
     public Vec3Boundary camBoundary;//직교투영카메라 렌더링 바운더리 모서리 4위치
     public Vec3Boundary camBoundDir; //각 모서리 부터 카메라까지의 차이벡터
+
+    public Camera minimapCam;
+    public Transform minimapCamIcon;
 
     void FindMapInfo()
     {
@@ -83,7 +88,7 @@ public class CamController2 : MonoBehaviour
         mapBoundary.xMax = mapGen.mapBoundary.RB.x;
 
 
-        
+
         mapBoundary.yMin = mapGen.mapBoundary.LT.z < mapGen.mapBoundary.RB.z ? mapGen.mapBoundary.LT.z : mapGen.mapBoundary.RB.z;
         mapBoundary.yMax = mapGen.mapBoundary.LT.z > mapGen.mapBoundary.RB.z ? mapGen.mapBoundary.LT.z : mapGen.mapBoundary.RB.z;
 
@@ -93,7 +98,7 @@ public class CamController2 : MonoBehaviour
         FindMapInfo();
 
         var mapGen = GameObject.Find("MapGen").GetComponent<MapGen>();
-        
+
         //float x = (mapBoundary.xMin + mapBoundary.xMax) * 0.5f;
         //float y = (mapBoundary.yMin + mapBoundary.yMax) * 0.5f;
 
@@ -122,11 +127,11 @@ public class CamController2 : MonoBehaviour
         Camera.main.orthographicSize = Mathf.Clamp(zoomVal, zoomMin, zoomMax);
 
 
-        if(preSize != Camera.main.orthographicSize)
-		{
-            UpdateCamBoundary();
-        }
-        
+        //if (preSize != Camera.main.orthographicSize)
+        //{
+        //    UpdateCamBoundary();
+        //}
+
     }
 
     void UpdateCamBoundary()
@@ -138,6 +143,7 @@ public class CamController2 : MonoBehaviour
         CheckOrthoCamBoundary(ref camBoundary.RB, new Vector2(1, 0));
         CheckOrthoCamBoundary(ref camBoundary.LB, new Vector2(0, 0));
 
+        camBoundary.Center = (camBoundary.LT + camBoundary.RB) * 0.5f;
 
         //2. Dir구하기
         CalcDir();
@@ -172,17 +178,17 @@ public class CamController2 : MonoBehaviour
         int nameToLayer = LayerMask.NameToLayer("CameraPlane"); //3 -> Layer의 index번호 
         int getMask = LayerMask.GetMask("CameraPlane"); //8 -> Layer의 비트 0000 1000
                                                         //(Int형이라서 8로 보이는거)
-        
+
         //즉 Bit 플래그로 쓸꺼면
         //GetMask로 바로 불러와서 쓰던가
         //nameToLayer로 불러와서 1 << nameToLayer 해야함.
         //Ray쓸때에는 Index(NameToLayer)로 하면됨!
-        if (Physics.Raycast(ray, out rayResult,100f, getMask))
+        if (Physics.Raycast(ray, out rayResult, 100f, getMask))
         {
             boundary = rayResult.point;
         }
 
-        
+
     }
 
     void CalcDir()
@@ -238,6 +244,20 @@ public class CamController2 : MonoBehaviour
         minimapCam.orthographicSize = size * 0.5f;
     }
 
+    void UpdateMinimapCamIcon()
+    {
+        //float aspect = (float)Screen.width / (float)Screen.height;
+        minimapCamIcon.position = camBoundary.Center;
+
+        float height = (camBoundary.LT.z- camBoundary.LB.z);
+        float width = (camBoundary.RT.x - camBoundary.LT.x);
+        
+        Vector3 scale = minimapCamIcon.localScale;
+        scale.y = height;
+        scale.x = width;
+        minimapCamIcon.localScale = scale;
+    }
+
 	private void Awake()
 	{
         
@@ -247,10 +267,10 @@ public class CamController2 : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-        
-        
         SetInitPos();
         SettingMinimapCam();
+
+        UpdateMinimapCamIcon();
     }
 
     // Update is called once per frame
@@ -266,6 +286,7 @@ public class CamController2 : MonoBehaviour
         Zoom();
         //2. 스크롤
         Scroll();
-
-	}
+        UpdateCamBoundary();
+        UpdateMinimapCamIcon();
+    }
 }
