@@ -267,9 +267,11 @@ public class CamController2 : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
+        UpdateCamBoundary();
+        UpdateMinimapCamIcon();
+
         SetInitPos();
         SettingMinimapCam();
-
         UpdateMinimapCamIcon();
     }
 
@@ -286,6 +288,7 @@ public class CamController2 : MonoBehaviour
         Zoom();
         //2. 스크롤
         Scroll();
+
         UpdateCamBoundary();
         UpdateMinimapCamIcon();
     }

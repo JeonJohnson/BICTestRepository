@@ -11,6 +11,8 @@ public enum BuildingName
 
 public class BuildingPlacer : MonoBehaviour
 {
+    public GameObject buildingPrefab;
+
     public GameObject gridPrefab;
 
     GameObject[,] grids = new GameObject[5, 5];
@@ -84,6 +86,7 @@ public class BuildingPlacer : MonoBehaviour
     {
         curSize.x = xSize;
         curSize.y = ySize;
+        //curSize.z = xSize;
 
         for (int y = 0; y < curSize.y; ++y)
         {
@@ -137,16 +140,22 @@ public class BuildingPlacer : MonoBehaviour
             }
 
             if (Input.GetMouseButtonDown(0))
-            { 
-                GameObject building = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            {
+                //GameObject building = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-                var scale = building.transform.localScale;
-                scale.x = curSize.x;
-                scale.y = curSize.x;
-                scale.z = curSize.x;
-                building.transform.localScale = scale;
+                GameObject building = Instantiate(buildingPrefab);
 
-                building.transform.rotation = Quaternion.Euler(new Vector3(0f, 45f, 0f));
+                Building script = building.GetComponent<Building>();
+                Vector3 scale = curSize;
+                scale.z = scale.x;
+                script.SettingScale(scale);
+                //var scale = building.transform.localScale;
+                //scale.x = curSize.x;
+                //scale.y = curSize.x;
+                //scale.z = curSize.x;
+                //building.transform.localScale = scale;
+
+                //building.transform.rotation = Quaternion.Euler(new Vector3(0f, 45f, 0f));
 
                 building.transform.position = CenterPos(grids[0,0],grids[(int)curSize.x-1,(int)curSize.y-1]);
 

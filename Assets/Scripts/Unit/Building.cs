@@ -10,6 +10,25 @@ public struct BuildingState
 
 public class Building : MonoBehaviour
 {
+    public GameObject mesh;
+    public GameObject minimapIcon;
+
+    public void SettingScale(Vector3 scale)
+    {//x,y -> 가로 세로 사이즈
+        //z -> 높이
+        mesh.transform.localScale = scale;
+
+        Vector3 meshPos = mesh.transform.position;
+        meshPos.y = scale.z * 0.5f;
+        mesh.transform.position = meshPos;
+
+
+        Vector3 iconScale = minimapIcon.transform.localScale;
+        iconScale.x = scale.x;
+        iconScale.y = scale.y;
+
+        minimapIcon.transform.localScale = iconScale;
+    }
 
 	private void Awake()
 	{
