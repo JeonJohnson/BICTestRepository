@@ -60,7 +60,8 @@ public class CamController2 : MonoBehaviour
     //*스크롤을 먼저하고 그 다음에 위치확인해서 클램프 걸기
 
     Camera mainCam;
-    
+    public Camera minimapCam;
+
     public float zoomSpd;
     public float zoomMin;
     public float zoomMax;
@@ -225,6 +226,17 @@ public class CamController2 : MonoBehaviour
         transform.position = moveVal;
     }
 
+    void SettingMinimapCam()
+    {
+        if (!minimapCam)
+        {
+            return;
+        }
+
+        minimapCam.transform.position = transform.position;
+        float size = mapBoundary.yMax - mapBoundary.yMin;
+        minimapCam.orthographicSize = size * 0.5f;
+    }
 
 	private void Awake()
 	{
@@ -238,7 +250,7 @@ public class CamController2 : MonoBehaviour
         
         
         SetInitPos();
-        
+        SettingMinimapCam();
     }
 
     // Update is called once per frame
