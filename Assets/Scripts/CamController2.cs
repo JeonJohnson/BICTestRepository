@@ -102,7 +102,7 @@ public class CamController2 : MonoBehaviour
         //float x = (mapBoundary.xMin + mapBoundary.xMax) * 0.5f;
         //float y = (mapBoundary.yMin + mapBoundary.yMax) * 0.5f;
 
-        transform.position = new Vector3(mapGen.mapBoundary.Center.x, 10, mapGen.mapBoundary.Center.z);
+        transform.position = new Vector3(mapGen.mapBoundary.Center.x, 20f, mapGen.mapBoundary.Center.z);
 
         UpdateCamBoundary();
     }

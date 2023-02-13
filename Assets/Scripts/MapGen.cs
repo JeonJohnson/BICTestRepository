@@ -10,7 +10,6 @@ public enum MapShape
 
 public class MapGen : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Vector2 firstPos;
     public int xCount;
     public int yCount;
@@ -25,6 +24,11 @@ public class MapGen : MonoBehaviour
     public GameObject tilePrefab;
 
     public Material PlaneMat;
+
+
+
+
+    public FOW fow;
 
     GameObject CreateTile(Vector2 pos, int row, int col)
     {
@@ -72,6 +76,7 @@ public class MapGen : MonoBehaviour
             for (int x = 0; x < xCount; ++x)
             {
                 mapArr[x,y] = CreateTile(curPos, x, y);
+                fow.CreateTile(curPos, x, y);
 
                 curPos.x += cubeDiagonalSize;
                 curPos.y -= cubeDiagonalSize;
