@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 91929296}
   - component: {fileID: 91929297}
   m_Layer: 9
-  m_Name: Circle
+  m_Name: icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1814,6 +1814,7 @@ MonoBehaviour:
     curHp: 0
     fullHp: 0
     moveSpd: 10
+    viewRange: 10
   destPos: {x: 0, y: 0, z: 0}
   dir: {x: 0, y: 0, z: 0}
   dist: 0
