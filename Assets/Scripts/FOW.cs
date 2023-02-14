@@ -62,7 +62,7 @@ public class FOW : MonoBehaviour
             instance = this;
         }
 
-        fogTiles = new FogTile[128, 128];
+        //fogTiles = new FogTile[128, 128];
 
 
     }

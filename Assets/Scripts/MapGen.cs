@@ -79,7 +79,7 @@ public class MapGen : MonoBehaviour
     void RhombusMapGen()
     {
         cubeSize = tilePrefab.transform.localScale.x;
-        cubeDiagonalSize = Mathf.Sqrt(cubeSize * 0.5f);
+        cubeDiagonalSize = cubeSize / Mathf.Sqrt(2f);
 
         mapArr = new GameObject[xCount, yCount];
 
@@ -93,7 +93,7 @@ public class MapGen : MonoBehaviour
             for (int x = 0; x < xCount; ++x)
             {
                 mapArr[x,y] = CreateTile(curPos, x, y);
-                fow.CreateTile(curPos, x, y);
+        //fow.CreateTile(curPos, x, y);
 
                 curPos.x += cubeDiagonalSize;
                 curPos.y -= cubeDiagonalSize;
@@ -106,6 +106,39 @@ public class MapGen : MonoBehaviour
         mapBoundary.LB = CenterPos(mapArr[xCount-1, yCount-1], mapArr[0, yCount-1]);
 
         mapBoundary.Center = CenterPos(mapBoundary.LT, mapBoundary.RB);
+    }
+
+    void RhombusFogGen()
+    {
+        float fogSize = 0.5f;
+       float fogDiagonalSize = fogSize / Mathf.Sqrt(2f);
+
+        FOW.Instance.fogTiles = new FogTile[512, 512];
+        //mapArr = new GameObject[xCount, yCount];
+
+        Vector2 curPos = Vector2.zero;
+        
+        for (int y = 0; y < 256; ++y)
+        {
+            curPos.x = firstPos.x - (fogDiagonalSize * y);
+            curPos.y = firstPos.y - (fogDiagonalSize * y);
+
+            for (int x = 0; x < 256; ++x)
+            {
+                //mapArr[x, y] = CreateTile(curPos, x, y);
+                fow.CreateTile(curPos, x, y);
+
+                curPos.x += fogDiagonalSize;
+                curPos.y -= fogDiagonalSize;
+            }
+        }
+
+        //mapBoundary.LT = CenterPos(mapArr[0, 0], mapArr[0, yCount - 1]);
+        //mapBoundary.RT = CenterPos(mapArr[0, 0], mapArr[xCount - 1, 0]);
+        //mapBoundary.RB = CenterPos(mapArr[xCount - 1, 0], mapArr[xCount - 1, yCount - 1]);
+        //mapBoundary.LB = CenterPos(mapArr[xCount - 1, yCount - 1], mapArr[0, yCount - 1]);
+
+        //mapBoundary.Center = CenterPos(mapBoundary.LT, mapBoundary.RB);
     }
 
     void SquareMapGen()
@@ -204,6 +237,7 @@ public class MapGen : MonoBehaviour
             case MapShape.Rhombus:
                 {
                     RhombusMapGen();
+                    RhombusFogGen();
                 }
                 break;
 

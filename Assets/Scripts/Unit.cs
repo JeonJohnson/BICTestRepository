@@ -28,11 +28,11 @@ public class Unit : MonoBehaviour
 
 	private void FindAroundTile()
 	{
-		var cols = Physics.OverlapSphere(transform.position, state.viewRange,LayerMask.GetMask("Terrain"));
+		var cols = Physics.OverlapSphere(transform.position, state.viewRange,LayerMask.GetMask("FogTile"));
 
 		for (int i = 0; i < cols.Length; ++i)
 		{
-			Vector2 pos = cols[i].GetComponentInParent<TestCube>().pos;
+			Vector2 pos = cols[i].GetComponentInParent<FogTile>().pos;
 
 			FOW.Instance.fogTiles[(int)pos.x, (int)pos.y].fogState = VisitState.Visiting;
 			FOW.Instance.visitTies.Add(FOW.Instance.fogTiles[(int)pos.x, (int)pos.y]);
