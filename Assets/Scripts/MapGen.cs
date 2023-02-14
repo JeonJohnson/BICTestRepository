@@ -10,6 +10,22 @@ public enum MapShape
 
 public class MapGen : MonoBehaviour
 {
+    private static MapGen instance = null;
+
+    public MapGen Instance
+    {
+        get 
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+
+            return instance;
+        }
+    }
+      
+
     public Vector2 firstPos;
     public int xCount;
     public int yCount;
@@ -38,6 +54,7 @@ public class MapGen : MonoBehaviour
         obj.transform.SetParent(transform);
 
         TestCube script = obj.GetComponent<TestCube>();
+        script.pos = new Vector2(row, col);
         string xStr = row < 10 ? "0" + row.ToString() : row.ToString();
         string yStr = col < 10 ? "0" + col.ToString() : col.ToString();
         script.posTex.text = $"({xStr},{yStr})";
@@ -169,6 +186,13 @@ public class MapGen : MonoBehaviour
 
     private void Awake()
 	{
+        if (instance == null)
+        {
+            instance = this;
+        }
+
+
+
         switch (shape)
         {
             case MapShape.Square:

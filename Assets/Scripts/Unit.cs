@@ -23,17 +23,28 @@ public class Unit : MonoBehaviour
 	public Vector3 dir;
 	public float dist;
 
-	// Start is called before the first frame update
-	void Start()
+
+	public List<FogTile> visitedTiles = new List<FogTile>();
+
+	private void FindAroundTile()
 	{
-		destPos = transform.position;
+		var cols = Physics.OverlapSphere(transform.position, state.viewRange,LayerMask.GetMask("Terrain"));
+
+		for (int i = 0; i < cols.Length; ++i)
+		{
+			Vector2 pos = cols[i].GetComponentInParent<TestCube>().pos;
+
+			FOW.Instance.fogTiles[(int)pos.x, (int)pos.y].fogState = VisitState.Visiting;
+			FOW.Instance.visitTies.Add(FOW.Instance.fogTiles[(int)pos.x, (int)pos.y]);
+			FOW.Instance.fogTiles[(int)pos.x, (int)pos.y].SetColor();
+			
+		}
+			
 	}
 
-	// Update is called once per frame
-	void Update()
+
+	private void Move()
 	{
-
-
 		if (Input.GetMouseButtonDown(1))
 		{
 			RaycastHit hit;
@@ -49,9 +60,27 @@ public class Unit : MonoBehaviour
 
 		dir = (destPos - transform.position).normalized;
 		dist = Vector3.Distance(destPos, transform.position);
-		if (dist > 0.1f)
+		if (dist > 0.25f)
 		{ transform.position += dir * Time.deltaTime * state.moveSpd; }
+	}
 
+	// Start is called before the first frame update
+	void Start()
+	{
+		destPos = transform.position;
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+
+		Move();
+		
+	}
+
+	private void LateUpdate()
+	{
+		FindAroundTile();
 	}
 
 	private void OnDrawGizmos()

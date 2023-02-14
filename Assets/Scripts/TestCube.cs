@@ -9,5 +9,6 @@ public class TestCube : MonoBehaviour
 {
 
     public Text posTex;
-    
+
+    public Vector2 pos;
 }
