@@ -60,6 +60,7 @@ public class CamController2 : MonoBehaviour
     //*스크롤을 먼저하고 그 다음에 위치확인해서 클램프 걸기
 
     Camera mainCam;
+    public Camera fogCam;
 
 
 
@@ -125,7 +126,7 @@ public class CamController2 : MonoBehaviour
         float zoomVal = (-1f * wheelScroll * zoomSpd * Time.deltaTime) + Camera.main.orthographicSize;
 
         Camera.main.orthographicSize = Mathf.Clamp(zoomVal, zoomMin, zoomMax);
-
+        fogCam.orthographicSize = Mathf.Clamp(zoomVal, zoomMin, zoomMax);
 
         //if (preSize != Camera.main.orthographicSize)
         //{
