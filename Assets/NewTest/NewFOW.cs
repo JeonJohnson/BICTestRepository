@@ -77,17 +77,25 @@ public class NewFOW : MonoBehaviour
         //int index = (_index.y * NewMapGen.Instance.tileCount) + _index.x;
 
         // x^2 + y^2 <= range^2 
-
+        //이게 되는 이유가
+        //원점을 0으로 뒀을때 
+        //특정한 점(x,y) 까지의 거리가 sqrt(x^2+y^2) 임.
+        //그게 거리(range)보다 작아야 하는걸
+        //좀 풀이한 식
+        //즉, 최대 거리와 같거나 작은 점을 고르는 것.
         int rangeInt = (int)sightRange;
 
-        for (int i = -rangeInt; i <= rangeInt; i++)
+        List<IntVector2> tempList = new List<IntVector2>();
+
+        for (int y = -rangeInt; y <= rangeInt; y++)
         {
-            for (int j = -rangeInt; j <= rangeInt; j++)
+            for (int x = -rangeInt; x <= rangeInt; x++)
             {
-                if (i * i + j * j <= sightRange * sightRange)
+                if (x * x + y * y <= sightRange * sightRange)
                 {
-                    Vector2 pos = new Vector2(curPos.x + i, curPos.z + j);
+                    Vector2 pos = new Vector2(curPos.x + x, curPos.z + y);
                     IntVector2 vec2Index = NewMapGen.Instance.GetTileIndex(pos);
+                    tempList.Add(vec2Index);
                     int index = (vec2Index.y * NewMapGen.Instance.tileCount) + vec2Index.x;
                     allFogTiles[index].fogState = Visiting;
                     visitFogTiles.Add(allFogTiles[index]);
