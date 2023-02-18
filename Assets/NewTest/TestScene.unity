@@ -252,7 +252,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fogMat: {fileID: 2100000, guid: d66e773bba4a6b7409b6c68988fc34d7, type: 2}
   fogTex: {fileID: 0}
-  tileVisitStates: []
+  unitList: []
+  tileAlpha: []
 --- !u!4 &617387570
 Transform:
   m_ObjectHideFlags: 0
@@ -322,6 +323,10 @@ PrefabInstance:
     - target: {fileID: 6130466303862607621, guid: f77d65fc1cfa2484ba54777e089beb2f, type: 3}
       propertyPath: m_Name
       value: TestUnit
+      objectReference: {fileID: 0}
+    - target: {fileID: 7143551839907407316, guid: f77d65fc1cfa2484ba54777e089beb2f, type: 3}
+      propertyPath: state.viewRange
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f77d65fc1cfa2484ba54777e089beb2f, type: 3}
