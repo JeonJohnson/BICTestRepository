@@ -11,6 +11,8 @@ public class NewUnit : MonoBehaviour
     public Vector3 dir;
     public float dist;
 
+    
+
     private void Move()
     {
         if (Input.GetMouseButtonDown(1))
@@ -44,8 +46,15 @@ public class NewUnit : MonoBehaviour
         Move();
     }
 
+	private void LateUpdate()
+	{
+        Vector2 temp = new Vector2(transform.position.x, transform.position.z);
+        IntVector2 index = NewMapGen.Instance.GetTileIndex(temp);
+        Debug.Log("Unit : " + index.x + "," + index.y);
+        NewFOW.Instance.VisitTile(index);
+	}
 
-    private void OnDrawGizmos()
+	private void OnDrawGizmos()
     {
         Color temp = Color.green;
         temp.a = 0.4f;

@@ -37,7 +37,6 @@ public class Unit : MonoBehaviour
 			FOW.Instance.fogTiles[(int)pos.x, (int)pos.y].fogState = VisitState.Visiting;
 			FOW.Instance.visitTies.Add(FOW.Instance.fogTiles[(int)pos.x, (int)pos.y]);
 			FOW.Instance.fogTiles[(int)pos.x, (int)pos.y].SetColor();
-			
 		}
 			
 	}

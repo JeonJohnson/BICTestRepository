@@ -71,6 +71,9 @@ public class NewMapGen : MonoBehaviour
     public void InitMap()
     {
         GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+
+        plane.name = "Tiles";
+
         plane.transform.position = centerPos;
         if (layoutType == TileLayoutType.Rhombus)
         { plane.transform.rotation = Quaternion.Euler(new Vector3(0, 45f, 0f)); }
@@ -101,7 +104,20 @@ public class NewMapGen : MonoBehaviour
     public IntVector2 GetTileIndex(Transform tr)
     {
 
-        return new IntVector2();
+        Vector3 pos = tr.position;
+
+
+        Vector2 firstPos = new Vector2();
+        firstPos.x = centerPos.x;
+        firstPos.y = centerPos.y + (planeDiagSize * 0.5f) - (tileDiagSize * 0.5f);
+
+        float tempX = ((pos.x - firstPos.x - pos.z + firstPos.y) / (tileDiagSize * 0.5f)) * 0.5f;
+        float tempY = ((-pos.z + firstPos.y - pos.x + firstPos.x) / (tileDiagSize * 0.5f)) * 0.5f;
+
+        int x = Mathf.RoundToInt(tempX);
+        int y = Mathf.RoundToInt(tempY);
+
+        return new IntVector2(x, y);
     }
 
     public IntVector2 GetTileIndex(Vector2 pos)
@@ -111,13 +127,8 @@ public class NewMapGen : MonoBehaviour
         firstPos.x = centerPos.x;
         firstPos.y = centerPos.y + (planeDiagSize * 0.5f) - (tileDiagSize * 0.5f);
 
-
-        //float tempX = ((pos.x - firstPos.x) - (pos.y - firstPos.y)) / (tileDiagSize * 0.5f);
-        //float tempY = ((pos.x - firstPos.y) - (pos.y - firstPos.y)) / (tileDiagSize * 0.5f);
-
         float tempX = ((pos.x - firstPos.x -pos.y+firstPos.y) / (tileDiagSize * 0.5f)) * 0.5f;
         float tempY = ((-pos.y + firstPos.y -pos.x +firstPos.x) / (tileDiagSize * 0.5f)) * 0.5f;
-        //Debug.Log("IsoVec : " + new Vector2(tempX, tempY));
 
         int x = Mathf.RoundToInt(tempX);
         int y = Mathf.RoundToInt(tempY);
@@ -217,7 +228,7 @@ public class NewMapGen : MonoBehaviour
 			{
 				//Debug.Log("Hit Pos : " + new Vector2(hit.point.x, hit.point.z));
 
-				IntVector2 tileIndex = GetTileIndex(new Vector3(hit.point.x, hit.point.z));
+				IntVector2 tileIndex = GetTileIndex(new Vector2(hit.point.x, hit.point.z));
                 Debug.Log("Tile Index : " + new Vector2( tileIndex.x, tileIndex.y));
             }
         }
