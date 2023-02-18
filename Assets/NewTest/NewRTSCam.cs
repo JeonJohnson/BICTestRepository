@@ -152,6 +152,13 @@ public class NewRTSCam : MonoBehaviour
         float size = camClamp.yMax - camClamp.yMin;
         minimapCam.orthographicSize = size * 0.5f;
     }
+
+
+    void SettingFogCam()
+    {
+        fogCam.orthographicSize = rtsCam.orthographicSize;
+    }
+
     private void Awake()
 	{
 		
@@ -163,6 +170,8 @@ public class NewRTSCam : MonoBehaviour
 
         SetInitPos();
         SettingMinimapCam();
+        SettingFogCam();
+
         UpdateMinimapCamIcon();
     }
 

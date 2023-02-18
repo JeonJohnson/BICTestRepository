@@ -48,13 +48,25 @@ public class NewUnit : MonoBehaviour
 
 	private void LateUpdate()
 	{
-        Vector2 temp = new Vector2(transform.position.x, transform.position.z);
-        IntVector2 index = NewMapGen.Instance.GetTileIndex(temp);
-        Debug.Log("Unit : " + index.x + "," + index.y);
-        NewFOW.Instance.VisitTile(index);
+        //Vector2 temp = new Vector2(transform.position.x, transform.position.z);
+        //IntVector2 index = NewMapGen.Instance.GetTileIndex(temp);
+        //Debug.Log("Unit : " + index.x + "," + index.y);
+        ////NewFOW.Instance.VisitTile(index);
 	}
 
-	private void OnDrawGizmos()
+
+	private void OnEnable()
+	{
+        NewFOW.Instance.unitList.Add(this);
+	}
+
+	private void OnDisable()
+	{
+        NewFOW.Instance.unitList.Remove(this);
+    }
+
+
+	private void OnDrawGizmosSelected()
     {
         Color temp = Color.green;
         temp.a = 0.4f;

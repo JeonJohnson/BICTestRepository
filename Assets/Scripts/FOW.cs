@@ -6,9 +6,10 @@ using UnityEngine;
 
 public enum VisitState
 { 
+    //* 0.4
     Visiting, //0 : a = 0 
-    Visited, //1 :  a = 0.4
-    Ever //2 : a = 0.8 
+    Visited = 2, // :  a = 0.4
+    Ever = 4 //2 : a = 0.8 
 }
 
 public class FOW : MonoBehaviour
