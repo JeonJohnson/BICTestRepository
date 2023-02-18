@@ -62,14 +62,21 @@ public class MapGen : MonoBehaviour
         return obj;
     }
 
-    Vector3 CenterPos(Vector3 pos1, Vector3 pos2)
+    public  static Vector3 CenterPos(Vector3 pos1, Vector3 pos2)
     {
         Vector3 dir = (pos1 - pos2).normalized;
         float dist = Vector3.Distance(pos1, pos2);
         return pos2 + (dir * (dist * 0.5f));
     }
 
-    Vector3 CenterPos(GameObject pos1, GameObject pos2)
+    public static Vector2 CenterPos(Vector2 pos1, Vector2 pos2)
+    {
+        Vector2 dir = (pos1 - pos2).normalized;
+        float dist = Vector2.Distance(pos1, pos2);
+        return pos2 + (dir * (dist * 0.5f));
+    }
+
+    public static Vector3 CenterPos(GameObject pos1, GameObject pos2)
     {
         Vector3 dir = (pos1.transform.position - pos2.transform.position).normalized;
         float dist = Vector3.Distance(pos1.transform.position, pos2.transform.position);

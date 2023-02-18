@@ -21,7 +21,7 @@ public struct IntVector2
 }
 
 
-public class MapGen : MonoBehaviour
+public class NewMapGen : MonoBehaviour
 {
 
     [Header("UserSetting Varis")]

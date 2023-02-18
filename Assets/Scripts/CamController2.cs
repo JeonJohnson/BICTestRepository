@@ -19,6 +19,22 @@ public struct Boundary
         }
     }
 
+    public Boundary ComputeBoundary(Vec2Boundary boundary)
+    {
+        xMin = boundary.LT.x;
+        xMax = boundary.RB.x;
+
+
+
+        yMin = boundary.LT.y < boundary.RB.y ? boundary.LT.y : boundary.RB.y;
+        yMax = boundary.LT.y > boundary.RB.y ? boundary.LT.y : boundary.RB.y;
+
+        yMin = boundary.LB.y;
+        yMax = boundary.LT.y;
+
+        return this;
+    }
+
     public float xMin;
     public float xMax;
     public float yMin;
@@ -48,7 +64,29 @@ public struct Vec3Boundary
     public Vector3 LB;
     public Vector3 Center;
 }
+[System.Serializable]
+public struct Vec2Boundary
+{
+    public static Vec2Boundary zero
+    {
+        get
+        {
+            var bound = new Vec2Boundary();
+            bound.LT = Vector2.zero;
+            bound.RT = Vector2.zero;
+            bound.RB = Vector2.zero;
+            bound.LB = Vector2.zero;
 
+            return bound;
+        }
+    }
+
+    public Vector2 LT;
+    public Vector2 RT;
+    public Vector2 RB;
+    public Vector2 LB;
+    public Vector2 Center;
+}
 public class CamController2 : MonoBehaviour
 {
     //직교투영 렌더 바운더리의 각 꼭짓점 pos 구한 다음
