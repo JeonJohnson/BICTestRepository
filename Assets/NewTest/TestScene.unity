@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -250,10 +250,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474c4b8a34c68c04aacb4e500e16c52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fogMat: {fileID: 2100000, guid: d66e773bba4a6b7409b6c68988fc34d7, type: 2}
+  fogBlurEffect: 1
   fogTex: {fileID: 0}
-  blurTex: {fileID: 8400000, guid: 50e01165ecc89d44aa22e73a57dd0f2d, type: 2}
-  blurMat: {fileID: 2100000, guid: c70036bd735b53f4ea1171fa649f9889, type: 2}
+  fogMat: {fileID: 0}
+  blurTex: {fileID: 0}
+  blurMat: {fileID: 0}
   unitList: []
   tileAlpha: []
 --- !u!4 &617387570

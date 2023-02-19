@@ -62,7 +62,8 @@ public class NewUnit : MonoBehaviour
 
 	private void OnDisable()
 	{
-        NewFOW.Instance.unitList.Remove(this);
+        //if(NewFOW.Instance != null)
+        //    NewFOW.Instance.unitList.Remove(this);
     }
 
 

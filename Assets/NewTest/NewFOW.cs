@@ -13,7 +13,9 @@ public class NewFOW : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = GameObject.Find(typeof(NewFOW).Name).GetComponent<NewFOW>();
+                var obj = GameObject.Find("NewFOW");
+                if (obj != null)
+                { instance = obj.GetComponent<NewFOW>(); }
             }
 
             return instance;
@@ -21,10 +23,11 @@ public class NewFOW : MonoBehaviour
     }
     #endregion
 
+    public bool fogBlurEffect;
+    public Texture2D fogTex; //딱 기본적인 컬러값만 가지고 있을 친구
     public Material fogMat;
-    public Texture2D fogTex;
     
-    public RenderTexture blurTex;
+    public RenderTexture blurTex; //블러효과까지 먹인 최종값
     public Material blurMat;
 
 
@@ -53,22 +56,25 @@ public class NewFOW : MonoBehaviour
         //현재 우리는 Object들의 좌상단이 0,0인데 반해
         //텍스쳐 좌표계에서는 좌하단이 0,0이라서
         //그거 맞춘다구 180도 돌려주는거
-        
-		fogTex = new Texture2D(NewMapGen.Instance.tileCount, NewMapGen.Instance.tileCount, TextureFormat.ARGB32, false);
-        fogTex.wrapMode = TextureWrapMode.Clamp;
+
 
         MeshRenderer mr = fogPlane.GetComponent<MeshRenderer>();
-
-		mr.material = Instantiate(fogMat);
-		mr.material.SetTexture("_MainTex", fogTex);
-        
-
-		mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         mr.receiveShadows = false;
 
+        #region Texture/Material
+        int mapLength = NewMapGen.Instance.tileCount;
 
-        //blurTex = RenderTexture.GetTemporary(NewMapGen.Instance.tileCount, NewMapGen.Instance.tileCount);
-        //blurMat = new Material(Shader.Find("Custom/BlurShader"));
+        fogTex = new Texture2D(mapLength, mapLength, TextureFormat.ARGB32, false);
+        fogMat = new Material(Shader.Find("Custom/FogShader"));
+
+        blurTex = RenderTexture.GetTemporary(mapLength, mapLength);
+        blurMat = new Material(Shader.Find("Custom/BlurShader"));
+		#endregion
+		
+        mr.material = fogMat;
+		//mr.material.SetTexture("_MainTex", fogTex);
+
 
 
 
@@ -151,8 +157,9 @@ public class NewFOW : MonoBehaviour
         fogTex.Apply();
 
         Graphics.Blit(fogTex, blurTex, blurMat);
-        fogMat.SetTexture("_MainTex",blurTex);
 
+        Texture tex = fogBlurEffect ? blurTex : fogTex;
+        fogMat.SetTexture("_MainTex",tex);
     }
 
 	private void OnRenderImage(RenderTexture source, RenderTexture destination)
@@ -193,7 +200,6 @@ public class NewFOW : MonoBehaviour
 
 	private void OnDisable()
 	{
-        //RenderTexture.ReleaseTemporary(blurTex);
-
+        RenderTexture.ReleaseTemporary(blurTex);
 	}
 }
