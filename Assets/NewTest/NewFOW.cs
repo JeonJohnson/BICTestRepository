@@ -23,6 +23,10 @@ public class NewFOW : MonoBehaviour
 
     public Material fogMat;
     public Texture2D fogTex;
+    
+    public RenderTexture blurTex;
+    public Material blurMat;
+
 
     public const float Visiting = 0f;
     public const float Visited = 0.4f;
@@ -50,15 +54,23 @@ public class NewFOW : MonoBehaviour
         //텍스쳐 좌표계에서는 좌하단이 0,0이라서
         //그거 맞춘다구 180도 돌려주는거
         
-		fogTex = new Texture2D(NewMapGen.Instance.tileCount, NewMapGen.Instance.tileCount);
+		fogTex = new Texture2D(NewMapGen.Instance.tileCount, NewMapGen.Instance.tileCount, TextureFormat.ARGB32, false);
+        fogTex.wrapMode = TextureWrapMode.Clamp;
 
         MeshRenderer mr = fogPlane.GetComponent<MeshRenderer>();
 
-        mr.material = Instantiate(fogMat);
-        mr.material.SetTexture("_MainTex", fogTex);
+		mr.material = Instantiate(fogMat);
+		mr.material.SetTexture("_MainTex", fogTex);
+        
 
-        mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+		mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         mr.receiveShadows = false;
+
+
+        //blurTex = RenderTexture.GetTemporary(NewMapGen.Instance.tileCount, NewMapGen.Instance.tileCount);
+        //blurMat = new Material(Shader.Find("Custom/BlurShader"));
+
+
 
         //unitList = new List<NewUnit>();
         visitFogTiles = new List<NewFogTile>();
@@ -138,16 +150,17 @@ public class NewFOW : MonoBehaviour
         fogTex.SetPixels(tileAlpha);
         fogTex.Apply();
 
-        //for (int i = 0; i < NewMapGen.Instance.tileCount; ++i)
-        //{
-        //    for (int k = 0; k < NewMapGen.Instance.tileCount; ++k)
-        //    { 
-        //    }
-        //}
+        Graphics.Blit(fogTex, blurTex, blurMat);
+        fogMat.SetTexture("_MainTex",blurTex);
+
     }
 
+	private void OnRenderImage(RenderTexture source, RenderTexture destination)
+	{
+        Graphics.Blit(source, destination, blurMat);    
+    }
 
-	private void Awake()
+    private void Awake()
 	{
         if (instance == null)
         {
@@ -176,4 +189,11 @@ public class NewFOW : MonoBehaviour
         ApplyFogAlpha();
 
     }
+
+
+	private void OnDisable()
+	{
+        //RenderTexture.ReleaseTemporary(blurTex);
+
+	}
 }
